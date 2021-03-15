@@ -15,12 +15,3 @@ safe_move() {
 safe_move $LABDIR
 mkdir -p $LABDIR
 
-
-if [ "$LABLINK" ]; then
-	if [ -L $LABLINK ]; then
-		rm -f $LABLINK
-	fi
-	if [ ! -e $LABLINK ]; then
-		ln -s $LABDIR $LABLINK
-	fi
-fi

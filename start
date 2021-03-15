@@ -5,7 +5,7 @@ set -e
 cd `dirname $0`
 BASEDIR=`pwd`
 LAB="$BASEDIR"
-LABDIR="$HOME/holops-2800"
+LABDIR="$HOME/cml-iac"
 
 init_common() {
 	for f in `ls $BASEDIR/common/init-*.sh | sort`; do
