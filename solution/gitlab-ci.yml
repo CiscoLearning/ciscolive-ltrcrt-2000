@@ -1,0 +1,37 @@
+stages:
+  - build
+  - test
+  - deploy
+image: python:3.6
+
+before_script:
+  - pip install ncclient requests
+
+config:
+  stage: build
+  except:
+    - master
+  script:
+    - cd iac-infra && python nbi-script.py config --method netconf --path ../l3vpn-config.xml
+
+check_connectivity:
+  stage: test
+  needs:
+    - config
+  except:
+    - master
+  when: delayed
+  start_in: 2 minutes
+  script:
+    - cd iac-infra
+    - python nbi-script.py action --method netconf --path ../tests/l3vpn-action-check-uplink.xml
+    - python nbi-script.py action --method netconf --path ../tests/l3vpn-action-check-connectivity.xml
+  after_script:
+    - cd iac-infra && python remove-config.py config --method netconf --path ../l3vpn-config.xml
+
+config_prod:
+  stage: deploy
+  only:
+    - master
+  script:
+    - cd iac-infra && python nbi-script.py config --method netconf --path ../l3vpn-config.xml

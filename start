@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+cd `dirname $0`
+BASEDIR=`pwd`
+LAB="$BASEDIR"
+LABDIR="$HOME/holops-2800"
+
+init_common() {
+	for f in `ls $BASEDIR/common/init-*.sh | sort`; do
+		. $f
+	done
+}
+
+if [ -e "$LAB/init.sh" ]; then
+	. $LAB/init.sh
+	echo "System is ready to use"
+else
+	exit 2
+fi

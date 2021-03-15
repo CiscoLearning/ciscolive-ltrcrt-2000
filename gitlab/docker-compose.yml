@@ -1,0 +1,57 @@
+version: '3.4'
+
+services:
+  vault:
+    restart: always
+    image: vault 
+    hostname: vault 
+    ports: 
+        - "1234:8200"
+
+  gitlab:
+    restart: always
+    image: gitlab/gitlab-ce
+    hostname: gitlab
+    # volumes:
+    #   - ./container-data/gitlab/etc/gitlab:/etc/gitlab
+    #   - ./container-data/gitlab/data/gitlab:/var/opt/gitlab
+    volumes:
+      - gitlab-config:/etc/gitlab
+      - gitlab-data:/var/opt/gitlab
+    ports:
+        - "80:80"
+    environment:
+      - GITLAB_ROOT_PASSWORD=C1sco12345
+      - GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN=sandboxrunners
+      - GITLAB_HOST=http://devbox
+      - VIRTUAL_HOST=devbox
+    # extra_hosts:
+    #   devtools-gitlab: 10.10.20.50
+  runner1:
+    restart: always
+    image: gitlab/gitlab-runner
+    environment:
+      - REGISTRATION_TOKEN=sandboxrunners
+      - RUNNER_NAME=runner1
+      - RUNNER_EXECUTOR=docker
+      - CI_SERVER_URL=http://devbox
+      - CLONE_URL=http://devbox
+      - REGISTER_NON_INTERACTIVE=true
+      - DOCKER_IMAGE=alpine
+      - DOCKER_EXTRA_HOSTS=devbox:10.10.20.50
+      - DOCKER_PULL_POLICY=if-not-present
+    volumes:
+      #- ./etc/runner:/etc/etc/gitlab-runnerc
+      - /var/run/docker.sock:/var/run/docker.sock
+    extra_hosts:
+      - "devbox:10.10.20.50"
+volumes:
+  gitlab-config: 
+    driver: local 
+  gitlab-data: 
+    driver: local
+
+# networks: 
+#  default: 
+#    external: 
+#      name: devtools-network
