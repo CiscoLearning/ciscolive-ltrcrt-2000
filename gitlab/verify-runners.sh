@@ -4,6 +4,8 @@ gitlab_host="http://devbox"
 gitlab_user="root"
 gitlab_password="C1sco12345"
 
+personal_access_token=""
+
 # create gitlab personal access token
 # https://gist.github.com/michaellihs/5ef5e8dbf48e63e2172a573f7b32c638
 create_gitlab_token () {
