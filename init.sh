@@ -1,5 +1,5 @@
 echo "Installing required modules"
-pip install -U pyats genie requests cmlutils ansible==2.19.17
+pip install -U pyats genie requests cmlutils ansible==2.9.17
 
 init_common
 
