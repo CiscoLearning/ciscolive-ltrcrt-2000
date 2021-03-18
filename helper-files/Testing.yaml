@@ -2,7 +2,7 @@ lab:
   description: ''
   notes: ''
   timestamp: 1616074254.1835756
-  title: Test
+  title: Testing
   version: 0.0.3
 nodes:
   - id: n1
