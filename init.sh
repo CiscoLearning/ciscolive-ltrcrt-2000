@@ -4,7 +4,7 @@ pip install -U pyats genie requests cmlutils ansible==2.19.17
 init_common
 
 echo "Copying initial files"
-cp ${LAB}/init/virlrc ${HOME}/.virlrc
+cp -f ${LAB}/init/virlrc ${HOME}/.virlrc
 
 echo "Shutting down default CML lab"
 cml down -n "Multi Platform Network"
