@@ -1,0 +1,34 @@
+---
+fabric:
+  dns:
+    - 192.168.255.1
+  vlans:
+    l2:
+      - name: HOSTS
+        vlan_id: 10
+      - name: SERVERS
+        vlan_id: 20
+    l3:
+      - 10:
+        subnet: 10.10.0.0/24
+        svi_address: 10.10.0.1
+        dhcp: true
+        dhcp_exclude:
+          - { start: 10.10.0.1, end: 10.10.0.127 }
+      - 20:
+        subnet: 10.20.0.0/24
+        svi_address: 10.20.0.1
+        dhcp: false
+  trunk_ports:
+    distribution:
+      - GigabitEthernet0/1:
+        allowed_vlans: all
+      - GigabitEthernet0/2:
+        allowed_vlans: all
+    access:
+      - GigabitEthernet0/1:
+        allowed_vlans: 20
+  access_ports:
+    sw-acc-01:
+      - GigabitEthernet0/2:
+        access_vlan: 10

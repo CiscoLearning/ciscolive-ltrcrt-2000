@@ -1,0 +1,10 @@
+---
+- name: Deploy VLAN Fabric to distribution
+  hosts: distribution,access
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: Deploy L2 VLAN
+      ios_vlans:
+        config: "{{ fabric.vlans.l2 }}"
+        state: overridden

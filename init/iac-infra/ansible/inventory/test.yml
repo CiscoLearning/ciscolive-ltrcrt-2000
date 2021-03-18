@@ -1,0 +1,20 @@
+---
+all:
+  hosts:
+    rtr-edge:
+      ansible_host: 10.10.20.176
+  children:
+    core:
+      hosts:
+        sw-core:
+          ansible_host: 10.10.20.177
+    distribution:
+      hosts:
+        sw-dist-01:
+          ansible_host: 10.10.20.178
+        sw-dist-02:
+          ansible_host: 10.10.20.179
+    access:
+      host:
+        sw-acc-01:
+          ansible_host: 10.10.20.180
