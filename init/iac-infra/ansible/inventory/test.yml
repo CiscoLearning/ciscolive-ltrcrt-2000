@@ -12,8 +12,10 @@ all:
       hosts:
         sw-dist-01:
           ansible_host: 10.10.20.178
+          dist_octet: 1
         sw-dist-02:
           ansible_host: 10.10.20.179
+          dist_octet: 2
     access:
       hosts:
         sw-acc-01:

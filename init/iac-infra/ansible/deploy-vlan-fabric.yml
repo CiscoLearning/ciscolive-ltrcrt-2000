@@ -1,5 +1,5 @@
 ---
-- name: Deploy VLAN Fabric to distribution
+- name: Deploy VLAN Fabric to distribution and access
   hosts: distribution,access
   gather_facts: false
   connection: network_cli
@@ -13,7 +13,6 @@
       ios_l2_interfaces:
         config:
           - name: "{{ item.port }}"
-            mode: trunk
             trunk:
               allowed_vlans: "{{ item.allowed_vlans }}"
               encapsulation: dot1q
@@ -25,10 +24,44 @@
       ios_l2_interfaces:
         config:
           - name: "{{ item.port }}"
-            mode: trunk
             trunk:
               allowed_vlans: "{{ item.allowed_vlans }}"
               encapsulation: dot1q
         state: replaced
       with_items: "{{ fabric.trunk_ports.access }}"
       when: '"access" in group_names'
+
+- name: Deploy L3 VLAN config to distribution
+  hosts: distribution
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: Create SVI
+      ios_l3_interfaces:
+        config:
+          - name: Vlan{{ item.vlan }}
+            ipv4:
+              - address: "{{ item.svi_address | replace('X', dist_octet|str) }}/{{ item.subnet.split("/")[1] }}"
+        state: replaced
+      with_items: "{{ fabric.vlans.l3 }}"
+
+    - name: Create DHCP server if needed
+      ios_config:
+        lines:
+          - ip dhcp server VLAN_{{ item.vlan }}
+          - import all
+          - network {{ item.subnet.split("/")[0] | replace('X', dist_octet|str) }} /{{ item.subnet.split("/")[1] }}
+          - dns-server {{ fabric.dns }}
+          - default-router {{ item.svi_address | replace('X', dist_octet|str) }}
+      with_items: "{{ fabric.vlans.l3 }}"
+      when: item.dhcp
+
+    - name: Exclude addresses from DHCP
+      ios_config:
+        lines:
+          - ip dhcp exclude-address {{ item.1.start | replace('X', dist_octet|str) }} {{ item.1.end | replace('X', dist_octet|str) }}
+      loop: "{{ fabric.vlans.l3|subelements('dhcp_exclude') }}"
+      loop_control:
+        label: "{{ item.0.vlan }}"
+      when: item.0.dhcp
+
