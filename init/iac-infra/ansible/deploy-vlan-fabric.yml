@@ -41,7 +41,7 @@
         config:
           - name: Vlan{{ item.vlan }}
             ipv4:
-              - address: "{{ item.svi_address | replace('X', dist_octet|str) }}/{{ item.subnet.split('/')[1] }}"
+              - address: "{{ item.svi_address | replace('X', dist_octet|string) }}/{{ item.subnet.split('/')[1] }}"
         state: replaced
       with_items: "{{ fabric.vlans.l3 }}"
 
@@ -50,16 +50,16 @@
         lines:
           - ip dhcp server VLAN_{{ item.vlan }}
           - import all
-          - network {{ item.subnet.split('/')[0] | replace('X', dist_octet|str) }} /{{ item.subnet.split('/')[1] }}
+          - network {{ item.subnet.split('/')[0] | replace('X', dist_octet|string) }} /{{ item.subnet.split('/')[1] }}
           - dns-server {{ fabric.dns }}
-          - default-router {{ item.svi_address | replace('X', dist_octet|str) }}
+          - default-router {{ item.svi_address | replace('X', dist_octet|string) }}
       with_items: "{{ fabric.vlans.l3 }}"
       when: item.dhcp
 
     - name: Exclude addresses from DHCP
       ios_config:
         lines:
-          - ip dhcp exclude-address {{ item.1.start | replace('X', dist_octet|str) }} {{ item.1.end | replace('X', dist_octet|str) }}
+          - ip dhcp exclude-address {{ item.1.start | replace('X', dist_octet|string) }} {{ item.1.end | replace('X', dist_octet|string) }}
       loop: "{{ fabric.vlans.l3|subelements('dhcp_exclude') }}"
       loop_control:
         label: "{{ item.0.vlan }}"
