@@ -13,6 +13,7 @@
       ios_l2_interfaces:
         config:
           - name: "{{ item.port }}"
+            mode: trunk
             trunk:
               allowed_vlans: "{{ item.allowed_vlans }}"
               encapsulation: dot1q
@@ -24,6 +25,7 @@
       ios_l2_interfaces:
         config:
           - name: "{{ item.port }}"
+            mode: trunk
             trunk:
               allowed_vlans: "{{ item.allowed_vlans }}"
               encapsulation: dot1q
