@@ -1,6 +1,6 @@
 lab:
-  description: ''
-  notes: ''
+  description: ""
+  notes: ""
   timestamp: 1616074254.1835756
   title: Production
   version: 0.0.3
@@ -10,7 +10,7 @@ nodes:
     node_definition: unmanaged_switch
     x: -600
     y: -50
-    configuration: ''
+    configuration: ""
     tags: []
     interfaces:
       - id: i0
@@ -195,8 +195,10 @@ nodes:
       line aux 0
       line vty 0 4
        login local
+       transport input ssh
       line vty 5 15
        login local
+       transport input ssh
       !
       !
       end
@@ -305,6 +307,8 @@ nodes:
       !
       router ospf 1
        network 10.0.0.2 0.0.0.1 area 0
+       passive-interface default
+       no passive-interface GigabitEthernet0/1
       !
       ip forward-protocol nd
       !
@@ -355,8 +359,10 @@ nodes:
       line aux 0
       line vty 0 4
        login local
+       transport input ssh
       line vty 5 15
        login local
+       transport input ssh
       !
       !
       end
@@ -463,6 +469,8 @@ nodes:
       !
       router ospf 1
        network 10.0.0.4 0.0.0.1 area 0
+       passive-interface default
+       no passive-interface GigabitEthernet0/1
       !
       ip forward-protocol nd
       !
@@ -513,8 +521,10 @@ nodes:
       line aux 0
       line vty 0 4
        login local
+       transport input ssh
       line vty 5 15
        login local
+       transport input ssh
       !
       !
       end
@@ -668,8 +678,10 @@ nodes:
       line aux 0
       line vty 0 4
        login local
+       transport input ssh
       line vty 5 15
        login local
+       transport input ssh
       !
       !
       end
@@ -897,15 +909,30 @@ nodes:
       * Cisco in writing.                                                      *
       **************************************************************************^C
       !
+      event manager applet do-ssh authorization bypass
+       event timer cron cron-entry "@reboot" maxrun 130
+       action 1.0 wait 10
+       action 2.0 cli command "enable"
+       action 3.0 cli command "config t"
+       action 4.0 cli command "crypto key zeroize rsa" pattern "remove|No Signature"
+       action 5.0 regexp "remove" "$_cli_result"
+       action 5.1 if $_regexp_result eq "1"
+       action 5.2  cli command "yes"
+       action 5.3 end
+       action 5.4 cli command "crypto key generate rsa modulus 2048"
+       action 5.5 cli command "no event manager applet do-ssh"
+       action 6.0 cli command "end"
+       action 7.0 cli command "write mem"
+      !
       line con 0
        exec-timeout 0 0
       line aux 0
       line vty 0 4
        login local
-       transport input none
+       transport input ssh
       line vty 5 15
        login local
-       transport input none
+       transport input ssh
       !
       no scheduler allocate
       !
