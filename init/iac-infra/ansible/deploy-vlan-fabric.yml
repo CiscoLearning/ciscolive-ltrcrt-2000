@@ -12,7 +12,7 @@
     - name: Configure distribution trunk port
       ios_l2_interfaces:
         config:
-          - name: "{{ item }}"
+          - name: "{{ item.port }}"
             trunk:
               allowed_vlans: "{{ item.allowed_vlans }}"
               encapsulation: dot1q
@@ -23,7 +23,7 @@
     - name: Configure access trunk port
       ios_l2_interfaces:
         config:
-          - name: "{{ item }}"
+          - name: "{{ item.port }}"
             trunk:
               allowed_vlans: "{{ item.allowed_vlans }}"
               encapsulation: dot1q
