@@ -74,7 +74,7 @@
     - name: Exclude addresses from DHCP
       ios_config:
         lines:
-          - ip dhcp exclude-address {{ item.1.start | replace('X', dist_octet|string) }} {{ item.1.end | replace('X', dist_octet|string) }}
+          - ip dhcp excluded-address {{ item.1.start | replace('X', dist_octet|string) }} {{ item.1.end | replace('X', dist_octet|string) }}
       loop: "{{ fabric.vlans.l3|subelements('dhcp_exclude') }}"
       loop_control:
         label: "{{ item.0.vlan }}"
