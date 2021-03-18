@@ -15,6 +15,6 @@ all:
         sw-dist-02:
           ansible_host: 10.10.20.179
     access:
-      host:
+      hosts:
         sw-acc-01:
           ansible_host: 10.10.20.180
