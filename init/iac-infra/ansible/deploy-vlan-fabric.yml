@@ -58,7 +58,7 @@
           - ip dhcp pool VLAN_{{ item.vlan }}
           - import all
           - network {{ item.subnet.split('/')[0] | replace('X', dist_octet|string) }} /{{ item.subnet.split('/')[1] }}
-          - dns-server {{ fabric.dns }}
+          - dns-server {{ fabric.dns | join(' ') }}
           - default-router {{ item.svi_address | replace('X', dist_octet|string) }}
       with_items: "{{ fabric.vlans.l3 }}"
       when: item.dhcp
