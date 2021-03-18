@@ -41,7 +41,7 @@
         config:
           - name: Vlan{{ item.vlan }}
             ipv4:
-              - address: "{{ item.svi_address | replace('X', dist_octet|str) }}/{{ item.subnet.split("/")[1] }}"
+              - address: "{{ item.svi_address | replace('X', dist_octet|str) }}/{{ item.subnet.split('/')[1] }}"
         state: replaced
       with_items: "{{ fabric.vlans.l3 }}"
 
@@ -50,7 +50,7 @@
         lines:
           - ip dhcp server VLAN_{{ item.vlan }}
           - import all
-          - network {{ item.subnet.split("/")[0] | replace('X', dist_octet|str) }} /{{ item.subnet.split("/")[1] }}
+          - network {{ item.subnet.split('/')[0] | replace('X', dist_octet|str) }} /{{ item.subnet.split('/')[1] }}
           - dns-server {{ fabric.dns }}
           - default-router {{ item.svi_address | replace('X', dist_octet|str) }}
       with_items: "{{ fabric.vlans.l3 }}"
@@ -64,4 +64,3 @@
       loop_control:
         label: "{{ item.0.vlan }}"
       when: item.0.dhcp
-
