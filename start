@@ -15,7 +15,8 @@ init_common() {
 
 if [ -e "$LAB/init.sh" ]; then
 	. $LAB/init.sh
-	echo "System is ready to use"
+	echo
+	echo "Lab is ready to go!"
 else
 	exit 2
 fi
