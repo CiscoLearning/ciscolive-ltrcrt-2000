@@ -22,9 +22,9 @@ fabric:
   trunk_ports:
     distribution:
       - port: GigabitEthernet0/1
-        allowed_vlans: all
+        allowed_vlans: 1-4094
       - port: GigabitEthernet0/2
-        allowed_vlans: all
+        allowed_vlans: 1-4094
     access:
       - port: GigabitEthernet0/1
         allowed_vlans: 20
