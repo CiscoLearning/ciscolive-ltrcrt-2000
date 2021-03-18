@@ -9,7 +9,9 @@ cp ${LAB}/init/virlrc ${HOME}/.virlrc
 echo "Shutting down default CML lab"
 cml down -n "Multi Platform Network"
 
-# TODO: Import Production configuration
+echo "Spinning up lab HOLOPS-2800 lab topologies"
+cml up -f ${LAB}/helper-files/Production.yaml
+cml up -f ${LAB}/helper-files/Testing.yaml
 
 echo "Spinning up GitLab-CE"
 cwd=$(pwd)
