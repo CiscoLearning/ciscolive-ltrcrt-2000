@@ -19,6 +19,7 @@ fabric:
         subnet: 10.20.X.0/24
         svi_address: 10.20.X.1
         dhcp: false
+        dhcp_exclude:
   trunk_ports:
     distribution:
       - port: GigabitEthernet0/2

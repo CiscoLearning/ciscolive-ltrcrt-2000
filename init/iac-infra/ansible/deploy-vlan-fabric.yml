@@ -44,7 +44,7 @@
         state: replaced
       with_items: "{{ fabric.vlans.l3 }}"
 
-    - name: Create SVI
+    - name: Set SVI L3 config
       ios_l3_interfaces:
         config:
           - name: Vlan{{ item.vlan }}
