@@ -45,10 +45,17 @@
         state: replaced
       with_items: "{{ fabric.vlans.l3 }}"
 
+    - name: Enable OSPF on SVI
+      ios_config:
+        lines:
+          - ip ospf 1 area 0
+        parents: interface Vlan{{ item.vlan }}
+      with_items: "{{ fabric.vlans.l3 }}"
+
     - name: Create DHCP server if needed
       ios_config:
         lines:
-          - ip dhcp server VLAN_{{ item.vlan }}
+          - ip dhcp pool VLAN_{{ item.vlan }}
           - import all
           - network {{ item.subnet.split('/')[0] | replace('X', dist_octet|string) }} /{{ item.subnet.split('/')[1] }}
           - dns-server {{ fabric.dns }}
