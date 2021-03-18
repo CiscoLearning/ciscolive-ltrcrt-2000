@@ -88,7 +88,7 @@
     - name: Allow VLAN subnets
       ios_config:
         lines:
-          - access-list 10 permit {{ item.subnet.split('/')[0] | replace('X', (item[0] + 1)|string) }} 0.0.0.{{ (2 ** (32 - item[1].subnet.split('/')[1]|int) - 1)|string }}
+          - access-list 10 permit {{ item[1].subnet.split('/')[0] | replace('X', (item[0] + 1)|string) }} 0.0.0.{{ (2 ** (32 - item[1].subnet.split('/')[1]|int) - 1)|string }}
       with_nested:
         - "{{ range(groups['distribution'] | length)|list }}"
         - "{{ fabric.vlans.l3 }}"
