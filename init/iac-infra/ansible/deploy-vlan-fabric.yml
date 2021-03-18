@@ -36,6 +36,14 @@
   gather_facts: false
   connection: network_cli
   tasks:
+    - name: Create SVI interface
+      ios_interfaces:
+        config:
+          - name: Vlan{{ item.vlan }}
+            enabled: true
+        state: replaced
+      with_items: "{{ fabric.vlans.l3 }}"
+
     - name: Create SVI
       ios_l3_interfaces:
         config:
@@ -55,11 +63,11 @@
     - name: Create DHCP server if needed
       ios_config:
         lines:
-          - ip dhcp pool VLAN_{{ item.vlan }}
           - import all
           - network {{ item.subnet.split('/')[0] | replace('X', dist_octet|string) }} /{{ item.subnet.split('/')[1] }}
           - dns-server {{ fabric.dns | join(' ') }}
           - default-router {{ item.svi_address | replace('X', dist_octet|string) }}
+        parents: ip dhcp pool VLAN_{{ item.vlan }}
       with_items: "{{ fabric.vlans.l3 }}"
       when: item.dhcp
 
