@@ -4,7 +4,27 @@
   gather_facts: false
   connection: network_cli
   tasks:
-    - name: Deploy L2 VLAN
+    - name: Deploy L2 VLANs
       ios_vlans:
         config: "{{ fabric.vlans.l2 }}"
         state: overridden
+    - name: Configure distribution trunk port
+      ios_l2_interfaces:
+        config:
+          - name: "{{ item }}"
+            mode: trunk
+            allowed_vlans: "{{ item.allowed_vlans }}"
+            encapsulation: dot1q
+        state: replaced
+      with_items: "{{ fabric.trunk_ports.distribution }}"
+      when: "distribution" in group_names
+    - name: Configure access trunk port
+      ios_l2_interfaces:
+        config:
+          - name: "{{ item }}"
+            mode: trunk
+            allowed_vlans: "{{ item.allowed_vlans }}"
+            encapsulation: dot1q
+        state: replaced
+      with_items: "{{ fabric.trunk_ports.access }}"
+      when: "access" in group_names
