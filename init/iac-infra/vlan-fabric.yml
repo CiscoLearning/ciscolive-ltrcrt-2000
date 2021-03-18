@@ -9,13 +9,13 @@ fabric:
       - name: SERVERS
         vlan_id: 20
     l3:
-      - vlan: 10:
+      - vlan: 10
         subnet: 10.10.0.0/24
         svi_address: 10.10.0.1
         dhcp: true
         dhcp_exclude:
           - { start: 10.10.0.1, end: 10.10.0.127 }
-      - vlan: 20:
+      - vlan: 20
         subnet: 10.20.0.0/24
         svi_address: 10.20.0.1
         dhcp: false
