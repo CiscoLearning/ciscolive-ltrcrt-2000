@@ -79,3 +79,14 @@
       loop_control:
         label: "{{ item.0.vlan }}"
       when: item.0.dhcp
+
+- name: Adjust NAT configuration
+  hosts: rtr-edge
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: Allow VLAN subnets
+      ios_config:
+        lines:
+          - access-list 10 permit {{ item.subnet.split('/')[0] }} 0.0.0.{{ (2 ** (32 - item.subnet.split('/')[1]|int) - 1)|string }}
+      with_items: "{{ fabric.vlans.l3 }}"
