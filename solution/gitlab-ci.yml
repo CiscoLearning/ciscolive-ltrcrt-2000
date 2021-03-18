@@ -5,7 +5,7 @@ stages:
 image: python:3.6
 
 before_script:
-  - pip install ncclient requests
+  - pip install pyats genie requests cmlutils ansible==2.9.17
 
 config:
   stage: build
