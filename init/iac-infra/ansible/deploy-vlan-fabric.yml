@@ -9,6 +9,13 @@
         config: "{{ fabric.vlans.l2 }}"
         state: overridden
 
+    - name: Adjust spanning tree for VLANs
+      ios_config:
+        lines:
+          - spanning-tree vlan {{ item.vlan_id|string }} priority 0
+      with_items: "{{ fabric.vlans.l2 }}"
+      when: '"distribution" in group_names'
+
     - name: Configure distribution trunk port
       ios_l2_interfaces:
         config:
