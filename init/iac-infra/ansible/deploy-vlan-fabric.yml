@@ -31,6 +31,29 @@
       with_items: "{{ fabric.trunk_ports.access }}"
       when: '"access" in group_names'
 
+- name: Deploy Access Port configuration
+  hosts: access
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: Configure VLAN on access ports
+      ios_l2_interfaces:
+        config:
+          - name: "{{ item.port }}"
+            access:
+              vlan: "{{ item.access_vlan }}"
+        state: replaced
+      with_items: "{{ fabric.access_ports[inventory_hostname] }}"
+      when: "inventory_hostname in fabric.access_ports"
+
+    - name: Enable portfast on access ports
+      ios_config:
+        lines:
+          - spanning-tree portfast
+        parents: interface {{ item. port }}
+      with_items: "{{ fabric.access_ports[inventory_hostname] }}"
+      when: "inventory_hostname in fabric.access_ports"
+
 - name: Deploy L3 VLAN config to distribution
   hosts: distribution
   gather_facts: false

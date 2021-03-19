@@ -1,17 +1,24 @@
 ---
+# Declare a simple VLAN fabric for our network.
 fabric:
+  # Set up an over-arching DNS server for all subnets to use.
   dns:
     - 192.168.255.1
   vlans:
+    # List the L2 aspects of our VLANs.
+    # These will be the _only_ VLANs allowed in our network.
     l2:
       - name: HOSTS
         vlan_id: 10
       - name: SERVERS
         vlan_id: 20
+    # For those same VLANs, provide L3 parameters where needed.
     l3:
       - vlan: 10
         subnet: 10.10.X.0/24
         svi_address: 10.10.X.1
+        # Do we need a DHCP server for this VLAN?
+        # If so, specify which addresses _not_ to use (this is for simplicity with the CLI).
         dhcp: true
         dhcp_exclude:
           - { start: 10.10.X.1, end: 10.10.X.127 }
@@ -21,6 +28,7 @@ fabric:
         dhcp: false
         dhcp_exclude: []
   trunk_ports:
+    # Configure trunk ports per switch layer.
     distribution:
       - port: GigabitEthernet0/2
         allowed_vlans: 1-4094
@@ -28,6 +36,7 @@ fabric:
       - port: GigabitEthernet0/1
         allowed_vlans: 20
   access_ports:
+    # Configure access ports on our access layer.
     sw-acc-01:
       - port: GigabitEthernet0/2
         access_vlan: 10
