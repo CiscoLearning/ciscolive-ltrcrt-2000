@@ -49,6 +49,9 @@ devices:
   host-01:
     os: linux
     type: host
+    credentials:
+      default:
+        username: "ubuntu"
     connections:
       cli:
         protocol: ssh
