@@ -177,7 +177,7 @@ class DistVlanCheck(aetest.Testcase):
         IGNORE_VLANS = ["1", "1002", "1003", "1004", "1005"]
 
         for v, vinfo in self.stp_det["pvst"]["vlans"].items():
-            if v in IGNORED_VLANS:
+            if v in IGNORE_VLANS:
                 continue
 
             i = 0
