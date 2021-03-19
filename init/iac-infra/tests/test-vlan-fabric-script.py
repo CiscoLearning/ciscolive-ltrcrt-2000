@@ -44,7 +44,7 @@ class VlanSetup(aetest.CommonSetup):
             )
         )
         self.parent.parameters["testbed"] = testbed
-        self.parent.parameters["vfabric"] = vfabric
+        self.parent.parameters["vfabric"] = vfabric["fabric"]
 
         # Connect to all devices in parallel.
         testbed.connect()
