@@ -26,7 +26,7 @@ class VlanSetup(aetest.CommonSetup):
             )
         )
         fabric_file = os.path.realpath(
-            os.path.join(os.path.dirname(__file__), "..", "vlan-fabric.yml")
+            os.path.join(os.path.dirname(__file__), "..", "..", "vlan-fabric.yml")
         )
         with open(cred_file) as fd:
             creds = load(fd, Loader=Loader)
