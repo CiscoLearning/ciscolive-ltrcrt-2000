@@ -14,6 +14,17 @@ except ImportError:
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 
+# From https://stackoverflow.com/questions/18759512/expand-a-range-which-looks-like-1-3-6-8-10-to-1-2-3-6-8-9-10
+def expand_range(r):
+    l = [
+        s.split("-") for s in r.split(",")
+    ]  # Extract each comma-separated range element
+    l = [
+        range(int(i[0]), int(i[1]) + 1) if len(i) == 2 else int(i) for i in l
+    ]  # expand the ranges
+
+    return l
+
 
 class VlanSetup(aetest.CommonSetup):
     @aetest.subsection
@@ -100,6 +111,8 @@ class DistVlanCheck(aetest.Testcase):
 
             table_data.append(table_row)
 
+            i += 1
+
         for v, vinfo in self.vlan.info["vlans"].items():
             if v not in IGNORE_VLANS and v not in vlans:
                 has_failed = True
@@ -135,8 +148,10 @@ class DistVlanCheck(aetest.Testcase):
             if f"VLAN{v.zfill(4)}" not in root_vlans:
                 table_row.append("N")
                 has_failed = True
+                table_row.append("Failed")
             else:
                 table_row.append("Y")
+                table_row.append("Passed")
 
             table_data.append(table_row)
 
@@ -152,3 +167,63 @@ class DistVlanCheck(aetest.Testcase):
             self.failed("This switch is not the root bridge for some VLANs!")
         else:
             self.passed("STP root bridge data is consistent")
+
+    @aetest.test
+    def stp_check_ports(self, device, vfabric):
+        has_failed = False
+        table_data = []
+        trunk_ports = [d["port"] for d in vfabric["trunk_ports"]["distribution"]]
+
+        for v, vinfo in self.stp_det["pvst"]["vlans"].items():
+            i = 0
+            for port in trunk_ports:
+                table_row = []
+                table_row.append(device)
+                table_row.append(v)
+                table_row.append(port)
+                allowed_vlans = expand_range(
+                    vfabric["trunk_ports"]["distribution"][i]["allowed_vlans"]
+                )
+                if int(v) in allowed_vlans:
+                    table_row.append("Y")
+                    if port not in vinfo["interfaces"]:
+                        has_failed = True
+                        table_row.append("N")
+                    else:
+                        table_row.append("Y")
+                        table_row.append(vinfo["interfaces"][port]["status"])
+                        if "forwarding" not in vinfo["interfaces"][port]["status"]:
+                            has_failed = True
+                else:
+                    table_row.append("N")
+                    table_row.append("N/A")
+
+                if has_failed:
+                    table_row.append("Failed")
+                else:
+                    table_row.append("Passed")
+
+                i += 1
+
+                table_data.append(table_row)
+
+        log.info(
+            tabulate(
+                table_data,
+                headers=[
+                    "Device",
+                    "VLAN ID",
+                    "Trunk Port",
+                    "Should Carry VLAN?",
+                    "Does Carry VLAN?",
+                    "Port Status",
+                    "Passed/Failed",
+                ],
+                tablefmt="orgtbl",
+            )
+        )
+
+        if has_failed:
+            self.failed("STP Port inconsistencies detected!")
+        else:
+            self.passed("All trunk ports are forwarding and carrying the right VLANs")
