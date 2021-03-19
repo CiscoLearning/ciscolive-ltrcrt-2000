@@ -20,10 +20,10 @@ def expand_range(r):
         s.split("-") for s in r.split(",")
     ]  # Extract each comma-separated range element
     l = [
-        range(int(i[0]), int(i[1]) + 1) if len(i) == 2 else int(i) for i in l
+        range(int(i[0]), int(i[1]) + 1) if len(i) == 2 else i for i in l
     ]  # expand the ranges
 
-    return l
+    return [int(item) for sl in l for item in sl]
 
 
 class VlanSetup(aetest.CommonSetup):
@@ -174,7 +174,12 @@ class DistVlanCheck(aetest.Testcase):
         table_data = []
         trunk_ports = [d["port"] for d in vfabric["trunk_ports"]["distribution"]]
 
+        IGNORE_VLANS = ["1", "1002", "1003", "1004", "1005"]
+
         for v, vinfo in self.stp_det["pvst"]["vlans"].items():
+            if v in IGNORED_VLANS:
+                continue
+
             i = 0
             for port in trunk_ports:
                 table_row = []
@@ -182,7 +187,7 @@ class DistVlanCheck(aetest.Testcase):
                 table_row.append(v)
                 table_row.append(port)
                 allowed_vlans = expand_range(
-                    vfabric["trunk_ports"]["distribution"][i]["allowed_vlans"]
+                    str(vfabric["trunk_ports"]["distribution"][i]["allowed_vlans"])
                 )
                 if int(v) in allowed_vlans:
                     table_row.append("Y")
