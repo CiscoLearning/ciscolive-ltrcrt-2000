@@ -52,6 +52,7 @@ devices:
     credentials:
       default:
         username: "ubuntu"
+        password: "%ENV{PYATS_PASSWORD}"
     connections:
       cli:
         protocol: ssh
