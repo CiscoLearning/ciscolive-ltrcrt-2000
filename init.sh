@@ -3,6 +3,9 @@ pip install -U pyats genie requests cmlutils ansible==2.9.17
 
 init_common
 
+echo "Cleaning up leftover cmlutils files"
+rm -rf ${HOME}/.virl
+
 echo "Copying initial files"
 cp -f ${LAB}/init/virlrc ${HOME}/.virlrc
 cp -rf ${LAB}/init/iac-infra ${LABDIR}
