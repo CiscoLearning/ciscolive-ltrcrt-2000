@@ -38,7 +38,7 @@
       with_items: "{{ fabric.trunk_ports.access }}"
       when: '"access" in group_names'
 
-- name: Deploy Access Port configuration
+- name: Deploy access port configuration
   hosts: access
   gather_facts: false
   connection: network_cli
