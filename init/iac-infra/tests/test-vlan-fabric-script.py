@@ -205,6 +205,9 @@ class VlanCheck(aetest.Testcase):
             ttype = "access"
 
         trunk_ports = [d["port"] for d in vfabric["trunk_ports"][ttype]]
+        avlans = []
+        if self.type == "access-switch":
+            avlans = [str(d["access-vlan"]) for d in vfabric["access-ports"][device]]
 
         for v, vinfo in self.stp_det["pvst"]["vlans"].items():
             if str(v) in IGNORE_VLANS:
@@ -217,7 +220,7 @@ class VlanCheck(aetest.Testcase):
                 table_row.append(v)
                 table_row.append(port)
                 allowed_vlans = expand_range(str(vfabric["trunk_ports"][ttype][i]["allowed_vlans"]))
-                if int(v) in allowed_vlans:
+                if int(v) in allowed_vlans or str(v) in avlans:
                     table_row.append("Y")
                     if port not in vinfo["interfaces"]:
                         has_failed = True
@@ -229,6 +232,7 @@ class VlanCheck(aetest.Testcase):
                             has_failed = True
                 else:
                     table_row.append("N")
+                    table_row.append("N/A")
                     table_row.append("N/A")
 
                 if has_failed:
