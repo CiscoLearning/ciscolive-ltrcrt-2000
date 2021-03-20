@@ -99,7 +99,7 @@ class DistVlanCheck(aetest.Testcase):
             i += 1
 
         for v, vinfo in self.vlan.info["vlans"].items():
-            if v not in IGNORE_VLANS and v not in vlans:
+            if str(v) not in IGNORE_VLANS and str(v) not in vlans:
                 has_failed = True
                 table_row = [device, v, vinfo["name"], "Failed (Extra)"]
                 table_data.append(table_row)
@@ -162,10 +162,8 @@ class DistVlanCheck(aetest.Testcase):
         trunk_ports = [d["port"] for d in vfabric["trunk_ports"]["distribution"]]
 
         for v, vinfo in self.stp_det["pvst"]["vlans"].items():
-            if v in IGNORE_VLANS:
+            if str(v) in IGNORE_VLANS:
                 continue
-
-            log.info(f"XXX: VLAN ID is '{v}'")
 
             i = 0
             for port in trunk_ports:
