@@ -207,7 +207,7 @@ class VlanCheck(aetest.Testcase):
         trunk_ports = [d["port"] for d in vfabric["trunk_ports"][ttype]]
         avlans = []
         if self.type == "access-switch":
-            avlans = [str(d["access-vlan"]) for d in vfabric["access_ports"][device]]
+            avlans = [str(d["access_vlan"]) for d in vfabric["access_ports"][device]]
 
         for v, vinfo in self.stp_det["pvst"]["vlans"].items():
             if str(v) in IGNORE_VLANS:
