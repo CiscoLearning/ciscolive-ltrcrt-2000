@@ -16,7 +16,7 @@ fabric:
     l3:
       - vlan: 10
         subnet: 10.10.X.0/24
-        svi_address: 10.11.X.1
+        svi_address: 10.10.X.1
         # Do we need a DHCP server for this VLAN?
         # If so, specify which addresses _not_ to use (this is for simplicity with the CLI).
         dhcp: true
@@ -34,7 +34,7 @@ fabric:
         allowed_vlans: 1-4094
     access:
       - port: GigabitEthernet0/1
-        allowed_vlans: 20
+        allowed_vlans: 10
   access_ports:
     # Configure access ports on our access layer.
     sw-acc-01:
