@@ -52,10 +52,6 @@ class VlanSetup(aetest.CommonSetup):
     @aetest.subsection
     def prepare_testcases(self, testbed):
         aetest.loop.mark(VlanCheck, device=[d.name for d in testbed if (d.type == "dist-switch" or d.type == "access-switch")])
-        # aetest.loop.mark(
-        #    AccessVlanCheck,
-        #    device=[d.name for d in testbed if d.type == "access-switch"],
-        # )
 
 
 class VlanCheck(aetest.Testcase):
@@ -76,6 +72,7 @@ class VlanCheck(aetest.Testcase):
         self.stp_det = d.parse("show spanning-tree detail")
 
         aetest.skipIf.affix(VlanCheck.stp_check_root, condition=(d.type != "dist-switch"), reason="Not a distribution switch")
+        aetest.skipIf.affix(VlanCheck.stp_check_not_root, condition=(d.type != "access-switch"), reason="Not a distribution switch")
 
     @aetest.test
     def vlan_exists_test(self, device, vfabric):
@@ -123,6 +120,8 @@ class VlanCheck(aetest.Testcase):
 
     @aetest.test
     def stp_check_root(self, device, vfabric):
+        global IGNORE_VLANS
+
         has_failed = False
         table_data = []
         vlans = [str(d["vlan_id"]) for d in vfabric["vlans"]["l2"]]
@@ -131,6 +130,9 @@ class VlanCheck(aetest.Testcase):
         root_vlans = [s.strip() for s in root_vlans]
 
         for v in vlans:
+            if str(v) in IGNORE_VLANS:
+                continue
+
             table_row = []
             table_row.append(device)
             table_row.append(v)
@@ -154,6 +156,41 @@ class VlanCheck(aetest.Testcase):
 
         if has_failed:
             self.failed("This switch is not the root bridge for some VLANs!")
+        else:
+            self.passed("STP root bridge data is consistent")
+
+    @aetest.test
+    def stp_check_not_root(self, device, vfabric):
+        global IGNORE_VLANS
+
+        has_failed = False
+        table_data = []
+        vlans = [str(d["vlan_id"]) for d in vfabric["vlans"]["l2"]]
+
+        root_vlans = self.stp_summ["root_bridge_for"].split(",")
+        root_vlans = [s.strip() for s in root_vlans]
+
+        for v in vlans:
+            if str(v) in IGNORE_VLANS:
+                continue
+
+            table_row = []
+            table_row.append(device)
+            table_row.append(v)
+            if f"VLAN{v.zfill(4)}" in root_vlans:
+                table_row.append("N")
+                has_failed = True
+                table_row.append("Failed")
+            else:
+                table_row.append("Y")
+                table_row.append("Passed")
+
+            table_data.append(table_row)
+
+        log.info(tabulate(table_data, headers=["Device", "VLAN ID", "Is Root?", "Passed/Failed"], tablefmt="orgtbl"))
+
+        if has_failed:
+            self.failed("This switch is the root VLAN for some VLANs (missing on trunk?)!")
         else:
             self.passed("STP root bridge data is consistent")
 
