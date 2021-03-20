@@ -21,5 +21,5 @@ if __name__ == "__main__":
     data = client.read("kv-v1/cml/holops2800")
     logger.info(data)
 
-    logger.info(data["data"]["ACI_USERNAME"])
-    logger.info(data["data"]["ACI_PASSWORD"])
+    logger.info(data["data"]["CML_USERNAME"])
+    logger.info(data["data"]["CML_PASSWORD"])

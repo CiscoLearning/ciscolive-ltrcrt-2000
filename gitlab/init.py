@@ -65,7 +65,7 @@ if __name__ == "__main__":
     approle = client.auth_approle(role_id, secret_id["data"]["secret_id"])
     logger.debug("approle auth information=%s", approle)
     appclient = hvac.Client(args.vault, approle["auth"]["client_token"])
-    res = appclient.write("kv-v1/cml/holops2800", ACI_USERNAME="admin", ACI_PASSWORD="C1sco12345")
+    res = appclient.write("kv-v1/cml/holops2800", CML_USERNAME="admin", CML_PASSWORD="cisco")
     data = appclient.read("kv-v1/cml/holops2800")
     logger.debug("data=%s", data["data"])
     logger.info("vault_client_token=%s", approle["auth"]["client_token"])
