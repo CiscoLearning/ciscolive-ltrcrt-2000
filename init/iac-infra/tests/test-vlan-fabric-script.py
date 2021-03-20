@@ -66,14 +66,14 @@ class VlanCheck(aetest.Testcase):
             self.failed(f"Device {device} is not connected; failed to learn operational details")
             return
 
-        self.type = d.type
-
         log.info(banner(f"Gathering VLAN info from {device}"))
         self.vlan = d.learn("vlan")
 
         log.info(banner(f"Gathering STP info from {device}"))
         self.stp_summ = d.parse("show spanning-tree summary")
         self.stp_det = d.parse("show spanning-tree detail")
+
+        aetest.skipIf.affix(VlanCheck.stp_check_root, condition=(d.type != "dist-switch"), reason="Not a distribution switch")
 
     @aetest.test
     def vlan_exists_test(self, device, vfabric):
@@ -121,10 +121,6 @@ class VlanCheck(aetest.Testcase):
 
     @aetest.test
     def stp_check_root(self, device, vfabric):
-        if self.type != "dist-switch":
-            self.skip("Not a distribution switch")
-            return
-
         has_failed = False
         table_data = []
         vlans = [str(d["vlan_id"]) for d in vfabric["vlans"]["l2"]]
