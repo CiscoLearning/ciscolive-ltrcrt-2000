@@ -51,20 +51,22 @@ class VlanSetup(aetest.CommonSetup):
 
     @aetest.subsection
     def prepare_testcases(self, testbed):
-        aetest.loop.mark(DistVlanCheck, device=[d.name for d in testbed if d.type == "dist-switch"])
+        aetest.loop.mark(VlanCheck, device=[d.name for d in testbed if (d.type == "dist-switch" or d.type == "access-switch")])
         # aetest.loop.mark(
         #    AccessVlanCheck,
         #    device=[d.name for d in testbed if d.type == "access-switch"],
         # )
 
 
-class DistVlanCheck(aetest.Testcase):
+class VlanCheck(aetest.Testcase):
     @aetest.setup
     def setup(self, device, testbed):
         d = testbed.devices[device]
         if not d.connected:
             self.failed(f"Device {device} is not connected; failed to learn operational details")
             return
+
+        self.type = d.type
 
         log.info(banner(f"Gathering VLAN info from {device}"))
         self.vlan = d.learn("vlan")
@@ -119,6 +121,10 @@ class DistVlanCheck(aetest.Testcase):
 
     @aetest.test
     def stp_check_root(self, device, vfabric):
+        if self.type != "dist-switch":
+            self.skip("Not a distribution switch")
+            return
+
         has_failed = False
         table_data = []
         vlans = [str(d["vlan_id"]) for d in vfabric["vlans"]["l2"]]
@@ -159,7 +165,11 @@ class DistVlanCheck(aetest.Testcase):
 
         has_failed = False
         table_data = []
-        trunk_ports = [d["port"] for d in vfabric["trunk_ports"]["distribution"]]
+        ttype = "distribution"
+        if self.type == "access-switch":
+            ttype = "access"
+
+        trunk_ports = [d["port"] for d in vfabric["trunk_ports"][ttype]]
 
         for v, vinfo in self.stp_det["pvst"]["vlans"].items():
             if str(v) in IGNORE_VLANS:
@@ -171,7 +181,7 @@ class DistVlanCheck(aetest.Testcase):
                 table_row.append(device)
                 table_row.append(v)
                 table_row.append(port)
-                allowed_vlans = expand_range(str(vfabric["trunk_ports"]["distribution"][i]["allowed_vlans"]))
+                allowed_vlans = expand_range(str(vfabric["trunk_ports"][ttype][i]["allowed_vlans"]))
                 if int(v) in allowed_vlans:
                     table_row.append("Y")
                     if port not in vinfo["interfaces"]:
