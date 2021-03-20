@@ -1,5 +1,5 @@
 echo "Installing required modules"
-pip install -U pyats[full] genie cryptography==3.3.1 requests cmlutils Jinja2=2.11.2 ansible==2.9.17
+pip install -U pyats[full] genie cryptography==3.3.1 requests cmlutils Jinja2==2.11.2 ansible==2.9.17
 
 init_common
 

@@ -5,7 +5,7 @@ stages:
 image: python:3.6
 
 before_script:
-  - pip install pyats[full] genie cryptography==3.3.1 requests cmlutils Jinja2=2.11.2 ansible==2.9.17
+  - pip install pyats[full] genie cryptography==3.3.1 requests cmlutils Jinja2==2.11.2 ansible==2.9.17
 
 config_test:
   stage: deploy_test
