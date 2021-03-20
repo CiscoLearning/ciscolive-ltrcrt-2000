@@ -1,8 +1,6 @@
 import argparse
 import logging
-import requests
 import hvac
-import json
 
 logger = logging.getLogger("vault-helper")
 
@@ -21,9 +19,7 @@ if __name__ == "__main__":
 
     logger.setLevel(args.log)
     ch = logging.StreamHandler()
-    formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )
+    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
@@ -33,7 +29,7 @@ if __name__ == "__main__":
 
     # Verify that the vault system is initialized.
     logger.debug("vault is_initialized=%s", client.sys.is_initialized())
-    assert client.sys.is_initialized() == True
+    assert client.sys.is_initialized() is True
 
     # Check if the engine secret is already enabled
     secret_engines = client.sys.list_mounted_secrets_engines()
@@ -69,9 +65,7 @@ if __name__ == "__main__":
     approle = client.auth_approle(role_id, secret_id["data"]["secret_id"])
     logger.debug("approle auth information=%s", approle)
     appclient = hvac.Client(args.vault, approle["auth"]["client_token"])
-    res = appclient.write(
-        "kv-v1/cml/holops2800", ACI_USERNAME="admin", ACI_PASSWORD="C1sco12345"
-    )
+    res = appclient.write("kv-v1/cml/holops2800", ACI_USERNAME="admin", ACI_PASSWORD="C1sco12345")
     data = appclient.read("kv-v1/cml/holops2800")
     logger.debug("data=%s", data["data"])
     logger.info("vault_client_token=%s", approle["auth"]["client_token"])
