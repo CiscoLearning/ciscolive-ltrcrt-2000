@@ -66,6 +66,8 @@ class VlanCheck(aetest.Testcase):
             self.failed(f"Device {device} is not connected; failed to learn operational details")
             return
 
+        self.type = d.type
+
         log.info(banner(f"Gathering VLAN info from {device}"))
         self.vlan = d.learn("vlan")
 
