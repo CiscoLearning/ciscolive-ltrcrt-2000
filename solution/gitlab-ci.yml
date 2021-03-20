@@ -1,21 +1,23 @@
 stages:
-  - deploy_test
-  - test
-  - deploy_prod
+  - deploy:test
+  - test:fabric
+  - test:connectivity
+  - deploy:prod
 image: python:3.6
 
 before_script:
-  - pip install pyats[full] genie cryptography==3.3.1 requests cmlutils Jinja2==2.11.2 ansible==2.9.17
+  - pip install pyats[full] genie cryptography==3.3.1 requests cmlutils Jinja2==2.11.2 ansible==2.9.17 paramiko
+  - chmod 0770 iac-infra/ansible
 
 config_test:
-  stage: deploy_test
+  stage: deploy:test
   except:
     - master
   script:
     - cd iac-infra/ansible && ansible-playbook -i inventory/test.yml -e @../../vlan-fabric.yml deploy-vlan-fabric.yml
 
 test_vlan_fabric:
-  stage: test
+  stage: test:fabric
   needs:
     - config_test
   except:
@@ -26,7 +28,7 @@ test_vlan_fabric:
     - pyats run job iac-infra/tests/test-vlan-fabric.py
 
 test_connectivity:
-  stage: test
+  stage: test:connectivity
   needs:
     - test_vlan_fabric
   except:
@@ -35,7 +37,7 @@ test_connectivity:
     - pyats run job iac-infra/tests/test-connectivity.py
 
 config_prod:
-  stage: deploy_prod
+  stage: deploy:prod
   only:
     - master
   script:
