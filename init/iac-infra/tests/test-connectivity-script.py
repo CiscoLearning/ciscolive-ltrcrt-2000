@@ -67,8 +67,11 @@ class ConnCheck(aetest.Testcase):
                 table_row = [device, HOST_DP_INTF]
                 table_row.append(addr)
                 table_row.append("Passed")
+
+                table_data.append(table_row)
         else:
             table_row = [device, HOST_DP_INTF, "N/A", "Failed"]
+            table_data.append(table_row)
             has_failed = True
 
         log.info(tabulate(table_data, headers=["Device", "Interface", "Address", "Passed/Failed"], tablefmt="orgtbl"))
