@@ -225,6 +225,7 @@ class VlanCheck(aetest.Testcase):
                     if port not in vinfo["interfaces"]:
                         has_failed = True
                         table_row.append("N")
+                        table_row.append("N/A")
                     else:
                         table_row.append("Y")
                         table_row.append(vinfo["interfaces"][port]["status"])
