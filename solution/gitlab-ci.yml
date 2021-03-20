@@ -1,37 +1,42 @@
 stages:
-  - build
+  - deploy_test
   - test
-  - deploy
+  - deploy_prod
 image: python:3.6
 
 before_script:
   - pip install pyats[full] genie cryptography==3.3.1 requests cmlutils Jinja2=2.11.2 ansible==2.9.17
 
-config:
-  stage: build
+config_test:
+  stage: deploy_test
   except:
     - master
   script:
-    - cd iac-infra && python nbi-script.py config --method netconf --path ../l3vpn-config.xml
+    - cd iac-infra/ansible && ansible-playbook -i inventory/test.yml -e @../../vlan-fabric.yml deploy-vlan-fabric.yml
 
-check_connectivity:
+test_vlan_fabric:
   stage: test
   needs:
-    - config
+    - config_test
   except:
     - master
   when: delayed
-  start_in: 2 minutes
+  start_in: 1 minute
   script:
-    - cd iac-infra
-    - python nbi-script.py action --method netconf --path ../tests/l3vpn-action-check-uplink.xml
-    - python nbi-script.py action --method netconf --path ../tests/l3vpn-action-check-connectivity.xml
-  after_script:
-    - cd iac-infra && python remove-config.py config --method netconf --path ../l3vpn-config.xml
+    - pyats run job iac-infra/tests/test-vlan-fabric.py
+
+test_connectivity:
+  stage: test
+  needs:
+    - test_vlan_fabric
+  except:
+    - master
+  script:
+    - pyats run job iac-infra/tests/test-connectivity.py
 
 config_prod:
-  stage: deploy
+  stage: deploy_prod
   only:
     - master
   script:
-    - cd iac-infra && python nbi-script.py config --method netconf --path ../l3vpn-config.xml
+    - cd iac-infra/ansible && ansible-playbook -i inventory/prod.yml -e @../../vlan-fabric.yml deploy-vlan-fabric.yml
