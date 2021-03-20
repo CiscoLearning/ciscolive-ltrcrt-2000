@@ -1,3 +1,8 @@
+# Declare four stages for our pipeline.
+# deploy:test - Used to deploy our configuration to the test infrastructure
+# test:fabric - Used to test that the VLAN fabric is sane
+# test:connectivity - Used to test that we have L3 connectivity in our fabric
+# deploy:prod - Used to deploy our tested config into production
 stages:
   - deploy:test
   - test:fabric
@@ -5,10 +10,16 @@ stages:
   - deploy:prod
 image: python:3.6
 
+# These steps are run before every step.
+# The first command installs all the necessary Python packages.
+# The second command removes the world-writeable bit from the ansible subdirectory
+# so Ansible will trust its config.
 before_script:
   - pip install pyats[full] genie cryptography==3.3.1 requests cmlutils Jinja2==2.11.2 ansible==2.9.17 paramiko
   - chmod 0770 iac-infra/ansible
 
+# Deploy our configuration using Ansible only when the triggering commit is _not_ to the master branch.
+# We cd to the iac-infra/ansible subdirectory so Ansible will find all the right files.
 config_test:
   stage: deploy:test
   except:
@@ -16,6 +27,9 @@ config_test:
   script:
     - cd iac-infra/ansible && ansible-playbook -i inventory/test.yml -e @../../vlan-fabric.yml deploy-vlan-fabric.yml
 
+# Use pyATS to run a test job to confirm various elements of our VLAN fabric are correct.
+# Since we want to make sure STP converges, we delay this by one minutes.
+# It only runs after we've deployed our configuration into test.
 test_vlan_fabric:
   stage: test:fabric
   needs:
@@ -27,6 +41,7 @@ test_vlan_fabric:
   script:
     - pyats run job iac-infra/tests/test-vlan-fabric.py
 
+# Test the IP connectivity in our fabric using pyATS.
 test_connectivity:
   stage: test:connectivity
   needs:
@@ -36,6 +51,8 @@ test_connectivity:
   script:
     - pyats run job iac-infra/tests/test-connectivity.py
 
+# Deploy our configuration to production using Ansible only when the triggering commit _is_ to the master branch.
+# We cd to the iac-infra/ansible subdirectory so Ansible will find all the right files.
 config_prod:
   stage: deploy:prod
   only:
