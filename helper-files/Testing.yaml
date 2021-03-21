@@ -746,7 +746,7 @@ nodes:
                 enp0s2:
                   match:
                     name: enp0s2
-                  dhcp4: true
+                  dhcp4: false
                   set-name: enp0s2
                 enp0s3:
                   match:
