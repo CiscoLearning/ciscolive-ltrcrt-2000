@@ -45,6 +45,22 @@ nodes:
         slot: 7
         label: port7
         type: physical
+      - id: i8
+        slot: 8
+        label: port8
+        type: physical
+      - id: i9
+        slot: 9
+        label: port9
+        type: physical
+      - id: i10
+        slot: 10
+        label: port10
+        type: physical
+      - id: i11
+        slot: 11
+        label: port11
+        type: physical
   - id: n2
     label: Mgmt
     node_definition: external_connector
