@@ -18,7 +18,7 @@ echo "Shutting down and deleting any previous labs"
 (cml use -n "Production" && cml rm -f --no-confirm) >/dev/null 2>&1 || true
 (cml use -n "Testing" && cml rm -f --no-confirm) >/dev/null 2>&1 || true
 
-echo "Spinning up lab HOLOPS-2800 lab topologies"
+echo "Spinning up HOLOPS-2800 lab topologies"
 cml up -f ${LAB}/helper-files/Production.yaml >/dev/null 2>&1
 cml up -f ${LAB}/helper-files/Testing.yaml >/dev/null 2>&1
 
