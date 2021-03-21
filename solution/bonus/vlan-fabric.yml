@@ -34,7 +34,7 @@ fabric:
         allowed_vlans: 1-4094
     access:
       - port: GigabitEthernet0/1
-        allowed_vlans: 10
+        allowed_vlans: 10,20
   access_ports:
     # Configure access ports on our access layer.
     sw-acc-01:
