@@ -746,7 +746,8 @@ nodes:
                 enp0s2:
                   match:
                     name: enp0s2
-                  dhcp4: false
+                  addresses:
+                    - 10.10.20.181/24
                   set-name: enp0s2
                 enp0s3:
                   match:
@@ -756,7 +757,6 @@ nodes:
               version: 2
       runcmd:
         - [netplan, apply]
-        - [ip, addr, add, 10.10.20.181/24, dev, enp0s2]
     image_definition: ubuntu-18-04
     tags: []
     interfaces:
