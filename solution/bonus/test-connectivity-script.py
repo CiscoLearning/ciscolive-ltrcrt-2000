@@ -16,6 +16,7 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 PING_TARGET = "192.168.255.1"
 HOST_DP_INTF = "enp0s3"
+TEST_URL = "https://www.marcuscom.com/holops-2800-test.txt"
 
 
 class VlanSetup(aetest.CommonSetup):
@@ -57,6 +58,9 @@ class ConnCheck(aetest.Testcase):
         log.info(banner(f"Pinging {PING_TARGET} from {device}"))
         self.ping = d.execute(f"ping -c 1 -W 3 {PING_TARGET}")
 
+        log.info(banner(f"Testing HTTP with cURL from {device}"))
+        self.curl = d.execute(f"curl {TEST_URL}")
+
     @aetest.test
     def intf_has_ip(self, device):
         has_failed = False
@@ -87,3 +91,10 @@ class ConnCheck(aetest.Testcase):
             self.failed(f"Ping to {PING_TARGET} failed from {device}: '{self.ping}'!")
         else:
             self.passed(f"Target {PING_TARGET} is reachable from {device}")
+
+    @aetest.test
+    def check_curl(self, device):
+        if "Cisco Live 2021 and HOLOPS-2800" not in self.curl:
+            self.failed(f"cURL to {TEST_URL} failed from {device}: '{self.curl}'!")
+        else:
+            self.passed(f"Loaded {TEST_URL} successfully from {device}\n{self.curl}")
