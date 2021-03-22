@@ -747,7 +747,7 @@ nodes:
                   match:
                     name: enp0s2
                   addresses:
-                    - 10.10.20.184/24
+                    - 10.10.20.181/24
                   set-name: enp0s2
                 enp0s3:
                   match:
