@@ -55,6 +55,8 @@ class ConnCheck(aetest.Testcase):
         self.ifconfig = d.parse("ifconfig")
 
         log.info(banner(f"Pinging {PING_TARGET} from {device}"))
+        # The device model itself provides a ping() method, but this one shows how you
+        # execute arbitrary CLI commands.
         self.ping = d.execute(f"ping -c 1 -W 3 {PING_TARGET}")
 
     @aetest.test
