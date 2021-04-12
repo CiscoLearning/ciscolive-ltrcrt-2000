@@ -1,7 +1,7 @@
 lab:
   description: ''
   notes: ''
-  timestamp: 1618257138.361841
+  timestamp: 1618268897.2917004
   title: Devbox
   version: 0.0.4
 nodes:
@@ -64,8 +64,8 @@ nodes:
         - [apt, update]
         - [apt-get, install, -y, python3-venv, make, docker.io, docker-compose]
     image_definition: ubuntu-20-04
-    ram: 4096
-    cpus: 2
+    ram: 8192
+    cpus: 4
     tags: []
     interfaces:
       - id: i0
