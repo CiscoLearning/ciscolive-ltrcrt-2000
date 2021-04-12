@@ -7,7 +7,7 @@ logger = logging.getLogger("vault-verify")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Vault Init")
-    parser.add_argument("--vault", default="http://198.18.1.11:1234", help="the vault server")
+    parser.add_argument("--vault", default="http://10.10.20.50:1234", help="the vault server")
     parser.add_argument("--log", default="INFO")
     args = parser.parse_args()
 
