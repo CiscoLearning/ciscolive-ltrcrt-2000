@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-gitlab_host="http://10.10.20.50"
+gitlab_host="http://198.18.1.11"
 gitlab_user="root"
 gitlab_password="C1sco12345"
 gitlab_wait_time=45
-vault_host="http://10.10.20.50:1234"
+vault_host="http://198.18.1.11:1234"
 vault_backend_type="kv-v1"
 # prints colored text
 success () {
