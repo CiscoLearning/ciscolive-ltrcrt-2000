@@ -1,7 +1,7 @@
 if [ -z "${VIRTUAL_ENV}" ]; then
     cd ${HOME}
     python3 -m venv py3env
-    source py3env/bin/activate
+    . ${HOME}/py3env/bin/activate
     echo "source ~/py3env/bin/activate >> ~/.bashrc"
 fi
 echo "Installing required modules"
