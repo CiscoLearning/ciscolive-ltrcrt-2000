@@ -29,12 +29,12 @@ success
 
 printf "Configuring external URL for GitLab..."
 docker-compose exec gitlab /bin/bash -c "echo external_url \'${gitlab_host}\' >> /etc/gitlab/gitlab.rb"
-docker-compose exec gitlab gitlab-ctl reconfigure 2>&1 >> gitlab_setup.log
+docker-compose exec gitlab gitlab-ctl reconfigure >> gitlab_setup.log 2>&1
 success
 
 printf "Registering GitLab Runner, waiting ${gitlab_wait_time} second(s) for gitlab to become available..."
 sleep ${gitlab_wait_time}
-docker-compose exec runner1 gitlab-runner register 2>&1 >> gitlab_setup.log
+docker-compose exec runner1 gitlab-runner register >> gitlab_setup.log 2>&1
 success
 
 echo "Configuring Vault"
