@@ -1,3 +1,9 @@
+if [ -z "${VIRTUAL_ENV}" ]; then
+    cd ${HOME}
+    python3 -m venv py3env
+    source py3env/bin/activate
+    echo "source ~/py3env/bin/activate >> ~/.bashrc"
+fi
 echo "Installing required modules"
 pip install -U pyats[full] genie cryptography==3.3.1 requests cmlutils Jinja2==2.11.2 ansible==2.9.17 paramiko
 
