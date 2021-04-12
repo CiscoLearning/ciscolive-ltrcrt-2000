@@ -1,0 +1,101 @@
+lab:
+  description: ''
+  notes: ''
+  timestamp: 1618257138.361841
+  title: Devbox
+  version: 0.0.4
+nodes:
+  - id: n0
+    label: dCloud
+    node_definition: external_connector
+    x: -750
+    y: -50
+    configuration: bridge1
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: port
+        type: physical
+  - id: n1
+    label: Devbox
+    node_definition: ubuntu
+    x: -550
+    y: -50
+    configuration: |-
+      #cloud-config
+      password: cisco
+      chpasswd: { expire: False }
+      hostname: devbox
+      ssh_pwauth: True
+      ssh_authorized_keys:
+        - your-ssh-pubkey-line-goes-here
+      users:
+        - default
+        - name: developer
+          groups: docker
+          plain_text_passwd: C1sco12345
+          lock_passwd: false
+          shell: /bin/bash
+          gecos: Developer User
+      write_files:
+        - path: /etc/netplan/50-cloud-init.yaml
+          content: |
+            network:
+              ethernets:
+                ens2:
+                  match:
+                    name: ens2
+                  addresses:
+                    - 198.18.1.11/24
+                  set-name: ens2
+                  gateway4: 198.18.1.1
+                  nameservers:
+                    addresses: [1.1.1.1]
+                ens3:
+                  match:
+                    name: ens3
+                  addresses:
+                    - 10.10.20.50/24
+                  set-name: ens3
+              version: 2
+      runcmd:
+        - [netplan, apply]
+        - [apt, update]
+        - [apt-get, install, -y, python3-venv, make, docker.io, docker-compose]
+    image_definition: ubuntu-20-04
+    ram: 4096
+    cpus: 2
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: enp0s2
+        type: physical
+      - id: i1
+        slot: 1
+        label: enp0s3
+        type: physical
+  - id: n2
+    label: OOB Mgmt
+    node_definition: external_connector
+    x: -550
+    y: 50
+    configuration: bridge0
+    tags: []
+    interfaces:
+      - id: i0
+        slot: 0
+        label: port
+        type: physical
+links:
+  - id: l0
+    i1: i0
+    n1: n0
+    i2: i0
+    n2: n1
+  - id: l1
+    i1: i1
+    n1: n1
+    i2: i0
+    n2: n2
