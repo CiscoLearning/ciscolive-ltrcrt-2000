@@ -38,13 +38,13 @@ services:
       - CLONE_URL=http://devbox
       - REGISTER_NON_INTERACTIVE=true
       - DOCKER_IMAGE=alpine
-      - DOCKER_EXTRA_HOSTS=devbox:10.10.20.50
+      - DOCKER_EXTRA_HOSTS=devbox:198.18.1.11
       - DOCKER_PULL_POLICY=if-not-present
     volumes:
       #- ./etc/runner:/etc/etc/gitlab-runnerc
       - /var/run/docker.sock:/var/run/docker.sock
     extra_hosts:
-      - "devbox:10.10.20.50"
+      - "devbox:198.18.1.11"
 volumes:
   gitlab-config:
     driver: local
