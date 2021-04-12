@@ -762,11 +762,11 @@ nodes:
     interfaces:
       - id: i0
         slot: 0
-        label: ens2
+        label: enp0s2
         type: physical
       - id: i1
         slot: 1
-        label: ens3
+        label: enp0s3
         type: physical
   - id: n8
     label: Internet
