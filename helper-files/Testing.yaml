@@ -970,7 +970,7 @@ nodes:
       no scheduler allocate
       !
       end
-    image_definition: iosv-158-3
+    image_definition: iosv-159-3
     tags: []
     interfaces:
       - id: i0
