@@ -12,7 +12,7 @@ cp -rf ${LAB}/init/iac-infra ${LABDIR}
 cp -f ${LAB}/init/vlan-fabric.yml ${LABDIR}
 
 echo "Shutting down default CML lab"
-cml down -n "Multi Platform Network"
+cml down -n "Multi Platform Network" || true
 
 echo "Shutting down and deleting any previous labs"
 (cml use -n "Production" && cml rm -f --no-confirm) >/dev/null 2>&1 || true
