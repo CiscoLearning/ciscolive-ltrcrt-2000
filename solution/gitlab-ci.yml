@@ -15,7 +15,7 @@ image: python:3.6
 # The second command removes the world-writeable bit from the ansible subdirectory
 # so Ansible will trust its config.
 before_script:
-  - pip install pyats[full] genie cryptography==3.3.1 requests cmlutils Jinja2==2.11.2 ansible==2.9.17 paramiko chardet==3.0.4
+  - pip install pyats[full] genie cryptography==3.3.1 requests cmlutils Jinja2==2.11.2 ansible==2.9.17 paramiko
   - chmod 0770 iac-infra/ansible
 
 # Deploy our configuration using Ansible only when the triggering commit is _not_ to the master branch.
