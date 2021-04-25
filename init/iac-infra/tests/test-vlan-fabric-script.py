@@ -178,11 +178,11 @@ class VlanCheck(aetest.Testcase):
             table_row.append(device)
             table_row.append(v)
             if f"VLAN{v.zfill(4)}" in root_vlans:
-                table_row.append("N")
+                table_row.append("Y")
                 has_failed = True
                 table_row.append("Failed")
             else:
-                table_row.append("Y")
+                table_row.append("N")
                 table_row.append("Passed")
 
             table_data.append(table_row)
@@ -215,6 +215,8 @@ class VlanCheck(aetest.Testcase):
 
             i = 0
             for port in trunk_ports:
+                port_failed = False
+
                 table_row = []
                 table_row.append(device)
                 table_row.append(v)
@@ -223,20 +225,20 @@ class VlanCheck(aetest.Testcase):
                 if int(v) in allowed_vlans or str(v) in avlans:
                     table_row.append("Y")
                     if port not in vinfo["interfaces"]:
-                        has_failed = True
+                        has_failed = port_failed = True
                         table_row.append("N")
                         table_row.append("N/A")
                     else:
                         table_row.append("Y")
                         table_row.append(vinfo["interfaces"][port]["status"])
                         if "forwarding" not in vinfo["interfaces"][port]["status"]:
-                            has_failed = True
+                            has_failed = port_failed = True
                 else:
                     table_row.append("N")
                     table_row.append("N/A")
                     table_row.append("N/A")
 
-                if has_failed:
+                if port_failed:
                     table_row.append("Failed")
                 else:
                     table_row.append("Passed")
