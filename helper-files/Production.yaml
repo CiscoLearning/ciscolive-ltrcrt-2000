@@ -757,7 +757,7 @@ nodes:
               version: 2
       runcmd:
         - [netplan, apply]
-    image_definition: ubuntu-20-04
+    image_definition: ubuntu-20-04-20210927
     tags: []
     interfaces:
       - id: i0
