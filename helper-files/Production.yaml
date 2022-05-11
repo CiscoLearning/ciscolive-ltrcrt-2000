@@ -112,7 +112,7 @@ nodes:
       !
       !
       !
-      ip domain-name holops-2800.lab
+      ip domain-name ciscolive.lab
       ip name-server 192.168.255.1
       ip cef
       no ipv6 cef
@@ -279,7 +279,7 @@ nodes:
       !
       !
       !
-      ip domain-name holops-2800.lab
+      ip domain-name ciscolive.lab
       ip cef
       no ipv6 cef
       !
@@ -443,7 +443,7 @@ nodes:
       !
       !
       !
-      ip domain-name holops-2800.lab
+      ip domain-name ciscolive.lab
       ip cef
       no ipv6 cef
       !
@@ -607,7 +607,7 @@ nodes:
       !
       !
       !
-      ip domain-name holops-2800.lab
+      ip domain-name ciscolive.lab
       ip cef
       no ipv6 cef
       !
@@ -829,7 +829,7 @@ nodes:
       !
       !
       !
-      ip domain name holops-2800.lab
+      ip domain name ciscolive.lab
       ip cef
       no ipv6 cef
       !

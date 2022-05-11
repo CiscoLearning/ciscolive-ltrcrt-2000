@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 PING_TARGET = "192.168.255.1"
 HOST_DP_INTF = "enp0s3"
-TEST_URL = "https://www.marcuscom.com/holops-2800-test.txt"
+TEST_URL = "https://www.marcuscom.com/ltrcrt-2000-test.txt"
 
 
 class VlanSetup(aetest.CommonSetup):
@@ -96,7 +96,7 @@ class ConnCheck(aetest.Testcase):
 
     @aetest.test
     def check_curl(self, device):
-        if "Cisco Live 2021 and HOLOPS-2800" not in self.curl:
+        if "Cisco Live 2022 and LTRCRT-2000" not in self.curl:
             self.failed(f"cURL to {TEST_URL} failed from {device}: '{self.curl}'!")
         else:
             self.passed(f"Loaded {TEST_URL} successfully from {device}\n{self.curl}")
