@@ -70,11 +70,11 @@ nodes:
     interfaces:
       - id: i0
         slot: 0
-        label: enp0s2
+        label: ens2
         type: physical
       - id: i1
         slot: 1
-        label: enp0s3
+        label: ens3
         type: physical
   - id: n2
     label: OOB Mgmt
