@@ -62,7 +62,7 @@ nodes:
       runcmd:
         - [netplan, apply]
         - [apt, update]
-        - [apt-get, install, -y, python3-venv, make, docker.io, docker-compose, tree]
+        - [apt-get, install, -y, python3-venv, make, docker.io, docker-compose, tree, jq]
         - [apt-get, install, -y, --only-upgrade, git]
     image_definition: ubuntu-20-04
     ram: 8192
