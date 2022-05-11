@@ -218,7 +218,7 @@ nodes:
       !
       !
       end
-    image_definition: iosvl2-2019
+    image_definition: iosvl2-2020
     tags: []
     interfaces:
       - id: i0
@@ -382,7 +382,7 @@ nodes:
       !
       !
       end
-    image_definition: iosvl2-2019
+    image_definition: iosvl2-2020
     tags: []
     interfaces:
       - id: i0
@@ -546,7 +546,7 @@ nodes:
       !
       !
       end
-    image_definition: iosvl2-2019
+    image_definition: iosvl2-2020
     tags: []
     interfaces:
       - id: i0
@@ -703,7 +703,7 @@ nodes:
       !
       !
       end
-    image_definition: iosvl2-2019
+    image_definition: iosvl2-2020
     tags: []
     interfaces:
       - id: i0
