@@ -1,5 +1,6 @@
 import logging
 import os
+import json
 from pyats import aetest
 from pyats.log.utils import banner
 from genie.testbed import load as tbload
@@ -15,7 +16,7 @@ log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 PING_TARGET = "192.168.255.1"
-HOST_DP_INTF = "enp0s3"
+HOST_DP_INTF = "ens3"
 
 
 class VlanSetup(aetest.CommonSetup):
@@ -52,7 +53,7 @@ class ConnCheck(aetest.Testcase):
             return
 
         log.info(banner(f"Getting interface data from {device}"))
-        self.ifconfig = d.parse("ifconfig")
+        self.ifconfig = json.loads(d.execute(f"ip -j addr show {HOST_DP_INTF}"))
 
         log.info(banner(f"Pinging {PING_TARGET} from {device}"))
         # The device model itself provides a ping() method, but this one shows how you
@@ -63,15 +64,19 @@ class ConnCheck(aetest.Testcase):
     def intf_has_ip(self, device):
         has_failed = False
         table_data = []
+        found_ipv4 = False
 
-        if "ipv4" in self.ifconfig[HOST_DP_INTF]:
-            for addr, params in self.ifconfig[HOST_DP_INTF]["ipv4"].items():
-                table_row = [device, HOST_DP_INTF]
-                table_row.append(addr)
-                table_row.append("Passed")
+        if "addr_info" in self.ifconfig[0]:
+            for addr in self.ifconfig[0]["addr_info"]:
+                if addr["family"] == "inet":
+                    found_ipv4 = True
+                    table_row = [device, HOST_DP_INTF]
+                    table_row.append(addr["local"])
+                    table_row.append("Passed")
 
-                table_data.append(table_row)
-        else:
+                    table_data.append(table_row)
+
+        if not found_ipv4:
             table_row = [device, HOST_DP_INTF, "N/A", "Failed"]
             table_data.append(table_row)
             has_failed = True
