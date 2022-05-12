@@ -8,7 +8,7 @@ stages:
   - test:fabric
   - test:connectivity
   - deploy:prod
-image: python:3.6
+image: python:3.8
 
 # These steps are run before every step.
 # The first command installs all the necessary Python packages.
