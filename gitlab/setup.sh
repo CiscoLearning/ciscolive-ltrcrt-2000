@@ -27,7 +27,6 @@ success
 
 printf "Setting default branch name..."
 token=$(curl -s -X POST -H "Content-type: application/json" --data-raw "{\"grant_type\": \"password\", \"username\": \"${gitlab_user}\", \"password\": \"${gitlab_password}\"}" ${gitlab_host}/oauth/token | jq -r .access_token)
-echo "Token in ${token}"
 output=$(curl -s -X PUT -H "Authorization: Bearer ${token}" -H "Content-type: application/json" --data-raw "{\"default_branch_name\": \"main\"}" ${gitlab_host}/api/v4/application/settings)
 if [ $? != 0 ]; then
     echo "FAIL!"
