@@ -19,12 +19,12 @@ before_script:
       requests cmlutils Jinja2==2.11.3 ansible==2.9.27 paramiko chardet==3.0.4
   - chmod 0770 iac-infra/ansible
 
-# Deploy our configuration using Ansible only when the triggering commit is _not_ to the master branch.
+# Deploy our configuration using Ansible only when the triggering commit is _not_ to the main branch.
 # We cd to the iac-infra/ansible subdirectory so Ansible will find all the right files.
 config_test:
   stage: deploy:test
   except:
-    - master
+    - main
   script:
     - cd iac-infra/ansible && ansible-playbook -i inventory/test.yml -e @../../vlan-fabric.yml deploy-vlan-fabric.yml
 
@@ -36,7 +36,7 @@ test_vlan_fabric:
   needs:
     - config_test
   except:
-    - master
+    - main
   when: delayed
   start_in: 1 minute
   script:
@@ -48,15 +48,15 @@ test_connectivity:
   needs:
     - test_vlan_fabric
   except:
-    - master
+    - main
   script:
     - pyats run job iac-infra/tests/test-connectivity.py
 
-# Deploy our configuration to production using Ansible only when the triggering commit _is_ to the master branch.
+# Deploy our configuration to production using Ansible only when the triggering commit _is_ to the main branch.
 # We cd to the iac-infra/ansible subdirectory so Ansible will find all the right files.
 config_prod:
   stage: deploy:prod
   only:
-    - master
+    - main
   script:
     - cd iac-infra/ansible && ansible-playbook -i inventory/prod.yml -e @../../vlan-fabric.yml deploy-vlan-fabric.yml
