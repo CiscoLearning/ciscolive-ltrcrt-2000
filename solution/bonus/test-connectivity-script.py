@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 PING_TARGET = "192.168.255.1"
 HOST_DP_INTF = "ens3"
-TEST_URL = "https://www.marcuscom.com/ltrcrt-2000-test.txt"
+TEST_URL = "https://www.marcuscom.com/ltrcrt-2000-test.txt?name=SOLUTION"
 
 
 class VlanSetup(aetest.CommonSetup):
