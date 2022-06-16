@@ -27,11 +27,11 @@ done
 success
 
 printf "Generating SSH key for ${gitlab_user}..."
-mkdir -p ~/${devbox_user}/.ssh
-output=$(/usr/bin/ssh-keygen -b 4096 -N "" -t rsa -f ~/${devbox_user}/.ssh/id_rsa 2>&1)
-chown -R ${devbox_user} ~/${devbox_user}/.ssh
-chmod 0700 ~/${devbox_user}/.ssh
-key=$(cat ~/${devbox_user}/.ssh/id_rsa.pub)
+mkdir -p ~${devbox_user}/.ssh
+output=$(/usr/bin/ssh-keygen -b 4096 -N "" -t rsa -f ~${devbox_user}/.ssh/id_rsa 2>&1)
+chown -R ${devbox_user} ~${devbox_user}/.ssh
+chmod 0700 ~${devbox_user}/.ssh
+key=$(cat ~${devbox_user}/.ssh/id_rsa.pub)
 if [ $? != 0 ]; then
     echo "FAIL!"
     echo "Result = ${output}"
@@ -49,6 +49,7 @@ else
     success
 fi
 
+printf "Adding SSH key for ${devbox_user} to GitLab user ${gitlab_user}..."
 output=$(curl -s -X POST -H "Authorization: Bearer ${token}" -H "Content-type: application/json" --data-raw "{\"name\": \"Devbox\", \"key\": \"${key}\"}" ${gitlab_host}/api/v4/user/keys)
 if [ $? != 0 ]; then
     echo "FAIL!"
