@@ -8,7 +8,7 @@
 4. Clone this repo:
 
 ```sh
-git clone https://github.com/CiscoLearning/ciscolive-holops-2800
+git clone https://github.com/CiscoLearning/ciscolive-ltrcrt-2000
 ```
 
 ## Starting the Lab
@@ -19,7 +19,7 @@ To prepare the lab environment, call the `start` script with the desired lab fro
 sh start
 ```
 
-Then, change directory to `~/ciscolive-holops-2800` and run `code -a .` to open that directory within the VSCode window.
+Then, change directory to `~/ciscolive-lrtcrt-2000` and run `code -a .` to open that directory within the VSCode window.
 
 ## Running the Lab At Home
 
