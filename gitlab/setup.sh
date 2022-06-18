@@ -27,12 +27,12 @@ done
 success
 
 printf "Generating SSH key for ${gitlab_user}..."
-rm -rf ~${devbox_user}/.ssh
-mkdir -p ~${devbox_user}/.ssh
-output=$(/usr/bin/ssh-keygen -b 4096 -N "" -t rsa -f ~${devbox_user}/.ssh/id_rsa 2>&1)
-chown -R ${devbox_user} ~${devbox_user}/.ssh
-chmod 0700 ~${devbox_user}/.ssh
-key=$(cat ~${devbox_user}/.ssh/id_rsa.pub)
+rm -rf /home/${devbox_user}/.ssh
+mkdir -p /home/${devbox_user}/.ssh
+output=$(/usr/bin/ssh-keygen -b 4096 -N "" -t rsa -f /home/${devbox_user}/.ssh/id_rsa 2>&1)
+chown -R ${devbox_user} /home/${devbox_user}/.ssh
+chmod 0700 /home/${devbox_user}/.ssh
+key=$(cat /home/${devbox_user}/.ssh/id_rsa.pub)
 if [ $? != 0 ]; then
     echo "FAIL!"
     echo "Result = ${output}"

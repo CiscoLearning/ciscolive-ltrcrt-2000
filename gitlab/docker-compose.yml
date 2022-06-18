@@ -13,6 +13,7 @@ services:
       - gitlab-data:/var/opt/gitlab
     ports:
       - "80:80"
+      - "2222:22"
     environment:
       - GITLAB_ROOT_PASSWORD=C1sco12345
       - GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN=sandboxrunners
