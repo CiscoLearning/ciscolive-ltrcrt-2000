@@ -28,3 +28,5 @@ If you have your own copy of Cisco Modeling Labs, you can run this lab at home w
 Next, edit `helper-files/Devbox.yaml` and look for "198.18".  Change the Devbox IP and its default gateway to match your network.  The Devbox uses 1.1.1.1 for DNS, which you may also want to change around the same location in this file.  Finally, in this same file, search for "bridge1".  This is the bridge used by the **dCloud** external connector.  You likely want to change this to "bridge0" to be the default CML bridge.  This will allow the Devbox to use the IP address you set in this file.
 
 With those changes made, you can run the `start` script as mentioned above.
+
+When working through the lab guide, be sure to replace "198.18.1.11" with the IP address you chose for the Devbox above.  Replace "198.18.134.1" with the IP of your CML server.
