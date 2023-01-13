@@ -101,7 +101,7 @@ class ConnCheck(aetest.Testcase):
 
     @aetest.test
     def check_curl(self, device):
-        if "Cisco Live 2022 and LTRCRT-2000" not in self.curl:
+        if "Cisco Live 2023 and LTRCRT-2000" not in self.curl:
             self.failed(f"cURL to {TEST_URL} failed from {device}: '{self.curl}'!")
         else:
             self.passed(f"Loaded {TEST_URL} successfully from {device}\n{self.curl}")
