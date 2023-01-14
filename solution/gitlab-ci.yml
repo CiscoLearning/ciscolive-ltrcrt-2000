@@ -8,15 +8,13 @@ stages:
   - test:fabric
   - test:connectivity
   - deploy:prod
-image: python:3.8
+image: xorrkaz/ltrcrt-2000:latest
 
 # These steps are run before every step.
 # The first command installs all the necessary Python packages.
 # The second command removes the world-writeable bit from the ansible subdirectory
 # so Ansible will trust its config.
 before_script:
-  - pip install pyats[full]==21.12 genie==21.12 pyopenssl==21.0.0 markupsafe==2.0.1 cryptography==3.3.1 \
-      requests cmlutils Jinja2==2.11.3 ansible==2.9.27 paramiko chardet==3.0.4
   - chmod 0770 iac-infra/ansible
 
 # Deploy our configuration using Ansible only when the triggering commit is _not_ to the main branch.
