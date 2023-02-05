@@ -10,9 +10,8 @@ stages:
   - deploy:prod
 image: xorrkaz/ltrcrt-2000:latest
 
-# These steps are run before every step.
-# The first command installs all the necessary Python packages.
-# The second command removes the world-writeable bit from the ansible subdirectory
+# This step are run before every step.
+# This command removes the world-writeable bit from the ansible subdirectory
 # so Ansible will trust its config.
 before_script:
   - chmod 0770 iac-infra/ansible
