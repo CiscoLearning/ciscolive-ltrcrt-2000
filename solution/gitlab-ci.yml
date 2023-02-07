@@ -10,7 +10,7 @@ stages:
   - deploy:prod
 image: xorrkaz/ltrcrt-2000:latest
 
-# This step are run before every step.
+# This step is run before every step.
 # This command removes the world-writeable bit from the ansible subdirectory
 # so Ansible will trust its config.
 before_script:
