@@ -172,6 +172,14 @@ nodes:
       ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
       !
       !
+      event manager applet write-mem authorization bypass
+       event timer cron cron-entry "@reboot" maxrun 130
+       action 1.0 wait 10
+       action 2.0 cli command "config t"
+       action 3.0 cli command "no event manager applet write-mem"
+       action 4.0 cli command "end"
+       action 5.0 cli command "write mem"
+      !
       !
       !
       !
@@ -335,6 +343,13 @@ nodes:
       ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
       ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
       !
+      event manager applet write-mem authorization bypass
+       event timer cron cron-entry "@reboot" maxrun 130
+       action 1.0 wait 10
+       action 2.0 cli command "config t"
+       action 3.0 cli command "no event manager applet write-mem"
+       action 4.0 cli command "end"
+       action 5.0 cli command "write mem"
       !
       !
       !
@@ -498,6 +513,14 @@ nodes:
       ip ssh version 2
       ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
       ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+      !
+      event manager applet write-mem authorization bypass
+       event timer cron cron-entry "@reboot" maxrun 130
+       action 1.0 wait 10
+       action 2.0 cli command "config t"
+       action 3.0 cli command "no event manager applet write-mem"
+       action 4.0 cli command "end"
+       action 5.0 cli command "write mem"
       !
       !
       !
