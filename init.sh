@@ -5,7 +5,7 @@ if [ -z "${VIRTUAL_ENV}" ]; then
     echo "source ~/py3env/bin/activate" >> ~/.bashrc
 fi
 echo "Installing required modules"
-pip install -U pyats[full]==21.12 genie==21.12 pyopenssl==21.0.0 markupsafe==2.0.1 cryptography==3.3.1 requests cmlutils Jinja2==2.11.3 ansible==2.9.27 paramiko chardet==3.0.4
+pip install -U pyats[full]==21.12 genie==21.12 pyopenssl==21.0.0 markupsafe==2.0.1 cryptography==3.3.1 requests cmlutils Jinja2==2.11.3 ansible==2.9.27 paramiko==2.12.0 chardet==3.0.4
 
 init_common
 
