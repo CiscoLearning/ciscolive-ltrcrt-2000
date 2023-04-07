@@ -144,7 +144,7 @@ nodes:
       !
       interface GigabitEthernet0/1
        no switchport
-       ip address 10.0.0.2 255.255.255.25w
+       ip address 10.0.0.2 255.255.255.252
        negotiation auto
       !
       interface GigabitEthernet0/2
