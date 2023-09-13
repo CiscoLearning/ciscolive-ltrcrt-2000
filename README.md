@@ -29,7 +29,7 @@ Next, edit `helper-files/Devbox.yaml` and look for "198.18".  Change the Devbox 
 
 With this file edited, import `Devbox.yaml` manually into your CML server and start the Devbox lab.  When the Devbox server is fully up, log into with credentials "developer" and password "C1sco12345".  Clone this same repo onto the Devbox.  Then, modify `init/virlrc` within this repo and change the IP address of the CML server and its credentials to match your local copy.
 
-Next, edit `gitlab/setup.sh` and change the `gitlab_host` variable at the top of the file to match the public IP address of the Devbox on your local network.
+Next, edit `gitlab/setup.sh` and change the `gitlab_host` variable at the top of the file to match the public IP address of the Devbox on your local network.  Edit the `gitlab/docker-compose.yml` file and search for "198.18.1.11" in this file and change the instances to the public IP address of the Devbox on your local network.
 
 With those changes made, you can run the `start` script as mentioned above.
 
