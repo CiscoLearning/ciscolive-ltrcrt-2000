@@ -18,7 +18,7 @@ devices:
       cli:
         protocol: ssh
         ip: 10.10.20.177
-        ssh_options: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -oKexAlgorithms=+diffie-hellman-group1-sha1"
+        ssh_options: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -oKexAlgorithms=+diffie-hellman-group1-sha1 -oHostkeyAlgorithms=+ssh-rsa"
   sw-dist-01:
     os: ios
     type: dist-switch
@@ -27,7 +27,7 @@ devices:
       cli:
         protocol: ssh
         ip: 10.10.20.178
-        ssh_options: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -oKexAlgorithms=+diffie-hellman-group1-sha1"
+        ssh_options: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -oKexAlgorithms=+diffie-hellman-group1-sha1 -oHostkeyAlgorithms=+ssh-rsa"
   sw-dist-02:
     os: ios
     type: dist-switch
@@ -36,7 +36,7 @@ devices:
       cli:
         protocol: ssh
         ip: 10.10.20.179
-        ssh_options: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -oKexAlgorithms=+diffie-hellman-group1-sha1"
+        ssh_options: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -oKexAlgorithms=+diffie-hellman-group1-sha1 -oHostkeyAlgorithms=+ssh-rsa"
   sw-acc-01:
     os: ios
     type: access-switch
@@ -45,7 +45,7 @@ devices:
       cli:
         protocol: ssh
         ip: 10.10.20.180
-        ssh_options: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -oKexAlgorithms=+diffie-hellman-group1-sha1"
+        ssh_options: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -oKexAlgorithms=+diffie-hellman-group1-sha1 -oHostkeyAlgorithms=+ssh-rsa"
   sw-acc-02:
     os: ios
     type: access-switch
@@ -54,7 +54,7 @@ devices:
       cli:
         protocol: ssh
         ip: 10.10.20.184
-        ssh_options: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -oKexAlgorithms=+diffie-hellman-group1-sha1"
+        ssh_options: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -oKexAlgorithms=+diffie-hellman-group1-sha1 -oHostkeyAlgorithms=+ssh-rsa"
   host-01:
     os: linux
     type: host
@@ -87,7 +87,7 @@ devices:
       cli:
         protocol: ssh
         ip: 10.10.20.176
-        ssh_options: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -oKexAlgorithms=+diffie-hellman-group14-sha1"
+        ssh_options: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -oKexAlgorithms=+diffie-hellman-group14-sha1 -oHostkeyAlgorithms=+ssh-rsa"
 topology:
   sw-core:
     interfaces:
