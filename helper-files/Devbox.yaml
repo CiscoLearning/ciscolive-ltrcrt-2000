@@ -40,7 +40,6 @@ nodes:
               shell: /bin/bash
               gecos: Developer User
           runcmd:
-            - [netplan, apply]
             - [apt, update]
             - [apt-get, install, -y, python3-venv, make, docker.io, docker-compose, tree, jq]
             - [apt-get, install, -y, --only-upgrade, git]
@@ -67,11 +66,6 @@ nodes:
                   - 10.10.20.50/24
                 set-name: ens3
             version: 2
-        runcmd:
-          - [netplan, apply]
-          - [apt, update]
-          - [apt-get, install, -y, python3-venv, make, docker.io, docker-compose, tree, jq]
-          - [apt-get, install, -y, --only-upgrade, git]
     ram: 8192
     cpus: 4
     tags: []
