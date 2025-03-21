@@ -23,7 +23,7 @@ echo "Shutting down and deleting any previous labs"
 
 echo "Spinning up LTRCRT-2000 lab topologies"
 cml up -f ${LAB}/helper-files/production-iol.yaml >/dev/null 2>&1
-cml up -f ${LAB}/helper-files/testing-iol.yaml >/dev/null 2>&1
+cml up -f ${LAB}/helper-files/testing-iol-new.yaml >/dev/null 2>&1
 
 echo "Spinning up GitLab-CE"
 cwd=$(pwd)

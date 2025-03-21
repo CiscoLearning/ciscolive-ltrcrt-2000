@@ -209,7 +209,7 @@ nodes:
     !
     control-plane
     !
-    banner exec ^C
+    banner exec \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -217,8 +217,8 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
-    banner incoming ^C
+    *************************************************************************^C
+    banner incoming \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -226,8 +226,8 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
-    banner login ^C
+    *************************************************************************^C
+    banner login \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -235,7 +235,7 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
+    *************************************************************************^C
     !
     line con 0
      exec-timeout 0 0
@@ -389,7 +389,7 @@ nodes:
     !
     control-plane
     !
-    banner exec ^C
+    banner exec \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -397,8 +397,8 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
-    banner incoming ^C
+    *************************************************************************^C
+    banner incoming \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -406,8 +406,8 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
-    banner login ^C
+    *************************************************************************^C
+    banner login \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -415,7 +415,7 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
+    *************************************************************************^C
     !
     line con 0
      exec-timeout 0 0
@@ -569,7 +569,7 @@ nodes:
     !
     control-plane
     !
-    banner exec ^C
+    banner exec \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -577,8 +577,8 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
-    banner incoming ^C
+    *************************************************************************^C
+    banner incoming \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -586,8 +586,8 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
-    banner login ^C
+    *************************************************************************^C
+    banner login \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -595,7 +595,7 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
+    *************************************************************************^C
     !
     line con 0
      exec-timeout 0 0
@@ -734,7 +734,7 @@ nodes:
     !
     control-plane
     !
-    banner exec ^C
+    banner exec \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -742,8 +742,8 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
-    banner incoming ^C
+    *************************************************************************^C
+    banner incoming \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -751,8 +751,8 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
-    banner login ^C
+    *************************************************************************^C
+    banner login \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -760,7 +760,7 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
+    *************************************************************************^C
     !
     line con 0
      exec-timeout 0 0
@@ -1007,7 +1007,7 @@ nodes:
     !
     control-plane
     !
-    banner exec ^C
+    banner exec \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -1015,8 +1015,8 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
-    banner incoming ^C
+    *************************************************************************^C
+    banner incoming \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -1024,8 +1024,8 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
-    banner login ^C
+    *************************************************************************^C
+    banner login \^C
     **************************************************************************
     * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
     * education. IOSv is provided as-is and is not supported by Cisco's      *
@@ -1033,7 +1033,7 @@ nodes:
     * of the IOSv Software or Documentation to any third party for any       *
     * purposes is expressly prohibited except as otherwise authorized by     *
     * Cisco in writing.                                                      *
-    **************************************************************************^C
+    *************************************************************************^C
     !
     line con 0
      exec-timeout 0 0
