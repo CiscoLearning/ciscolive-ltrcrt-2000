@@ -1,0 +1,11 @@
+[project]
+name = "ltrcrt-2000"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ansible>=11.3.0",
+    "cmlutils>=2.3.0",
+    "pyats[full]>=25.2",
+]
