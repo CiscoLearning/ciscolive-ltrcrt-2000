@@ -1,5 +1,6 @@
-# Prune the Docker system
+#!/usr/bin/env bash
 
+# Prune the Docker system
 echo "Pruning Docker system"
 [ -n "$(docker ps -aq)" ] && docker stop $(docker ps -aq) >/dev/null 2>&1
 [ -n "$(docker ps -aq)" ] && docker rm -f $(docker ps -aq) >/dev/null 2>&1

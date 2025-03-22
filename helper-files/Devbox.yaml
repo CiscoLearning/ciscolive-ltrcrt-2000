@@ -40,9 +40,12 @@ nodes:
               shell: /bin/bash
               gecos: Developer User
           runcmd:
-            - [apt, update]
-            - [apt-get, install, -y, python3-venv, make, docker.io, docker-compose, tree, jq]
-            - [apt-get, install, -y, --only-upgrade, git]
+            - apt update
+            - apt-get install -y python3-venv git make docker.io docker-compose tree jq
+            - apt-get full-upgrade -y && touch /run/reboot
+          power_state:
+            mode: reboot
+            condition: test -f /run/reboot
       - name: network-config
         content: |-
           #network-config

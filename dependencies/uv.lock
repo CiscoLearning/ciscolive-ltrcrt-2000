@@ -110,6 +110,19 @@ wheels = [
 ]
 
 [[package]]
+name = "ansible-pylibssh"
+version = "1.2.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/93/50/38298568fbd517dcb7b08c06f4fbfc0481ab9eae1e4b01920495dacf672a/ansible-pylibssh-1.2.2.tar.gz", hash = "sha256:753e570dcdceb6ab8e362e91cc0d5993beebc93d287b88178db55509f6423ab5", size = 135490 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d2/ad/69182877e961c41c8d85fea497de5d99c229cf30c47dcd7bc84362299e1d/ansible_pylibssh-1.2.2-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:9b9684d0dfc557a7c882cbcbdba8cd478d30a4009804d33067900c2956d4ffbd", size = 2294870 },
+    { url = "https://files.pythonhosted.org/packages/a8/06/7dbaabd8910d0acb96da28623cac8f55318089be0d1d6b2397c32f6c73da/ansible_pylibssh-1.2.2-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:1b78d78a6b1c10404c1d141fc78fc18a2ca5290960ff55a39ef7d2d7a7701d8b", size = 2815358 },
+    { url = "https://files.pythonhosted.org/packages/24/12/b1cf2305890b3569eb476270c42e67c348d10a5ac66e21250f67cad3e927/ansible_pylibssh-1.2.2-cp312-cp312-manylinux_2_28_ppc64le.whl", hash = "sha256:e3ab210a012169339220640e9005188d00195cd8cb35036f2a25471eec65745c", size = 3087410 },
+    { url = "https://files.pythonhosted.org/packages/c5/c1/b92aa0a4adf2e1f542a7587af88a5662949c5fa74791bff79333c9e0d3d8/ansible_pylibssh-1.2.2-cp312-cp312-manylinux_2_28_s390x.whl", hash = "sha256:36674b80d2c0a4c411385dcf9709b96a575bffd54cca81a82aaf572015001146", size = 2804564 },
+    { url = "https://files.pythonhosted.org/packages/5b/9a/e4a7787950df2876ff4e83767f7afd29b4f6f451e1eb2285fea9bdac38fb/ansible_pylibssh-1.2.2-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:43b2f708af82d57ea3df8d493590720a3dd7dc60a58c65b46eb97d94462be07c", size = 2934402 },
+]
+
+[[package]]
 name = "anyio"
 version = "4.9.0"
 source = { registry = "https://pypi.org/simple" }
@@ -893,6 +906,7 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "ansible" },
+    { name = "ansible-pylibssh" },
     { name = "cmlutils" },
     { name = "pyats", extra = ["full"] },
 ]
@@ -900,6 +914,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "ansible", specifier = ">=11.3.0" },
+    { name = "ansible-pylibssh", specifier = ">=1.2.2" },
     { name = "cmlutils", specifier = ">=2.3.0" },
     { name = "pyats", extras = ["full"], specifier = ">=25.2" },
 ]

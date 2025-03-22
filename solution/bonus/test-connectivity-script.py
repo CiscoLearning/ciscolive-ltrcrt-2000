@@ -1,16 +1,12 @@
+import json
 import logging
 import os
-import json
+
+import yaml
+from genie.testbed import load as tbload
 from pyats import aetest
 from pyats.log.utils import banner
-from genie.testbed import load as tbload
 from tabulate import tabulate
-from yaml import load
-
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
 
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(message)s")
@@ -24,15 +20,23 @@ class VlanSetup(aetest.CommonSetup):
     @aetest.subsection
     def connect_to_devices(self):
         creds = {}
-        cred_file = os.path.realpath(os.path.join(os.path.dirname(__file__), "..", "ansible", "group_vars", "all.yml"))
+        cred_file = os.path.realpath(
+            os.path.join(
+                os.path.dirname(__file__), "..", "ansible", "group_vars", "all.yml"
+            )
+        )
         with open(cred_file) as fd:
-            creds = load(fd, Loader=Loader)
+            creds = yaml.safe_load(fd)
 
         os.environ["PYATS_USERNAME"] = creds["ansible_ssh_user"]
         os.environ["PYATS_PASSWORD"] = creds["ansible_ssh_pass"]
         os.environ["PYATS_AUTH_PASS"] = creds["ansible_ssh_pass"]
 
-        testbed = tbload(os.path.realpath(os.path.join(os.path.dirname(__file__), "testbed-testing.yml")))
+        testbed = tbload(
+            os.path.realpath(
+                os.path.join(os.path.dirname(__file__), "testbed-testing.yml")
+            )
+        )
         self.parent.parameters["testbed"] = testbed
 
         # Connect to all devices in parallel.
@@ -40,7 +44,9 @@ class VlanSetup(aetest.CommonSetup):
 
     @aetest.subsection
     def prepare_testcases(self, testbed):
-        aetest.loop.mark(ConnCheck, device=[d.name for d in testbed if (d.type == "host")])
+        aetest.loop.mark(
+            ConnCheck, device=[d.name for d in testbed if (d.type == "host")]
+        )
 
 
 class ConnCheck(aetest.Testcase):
@@ -50,7 +56,9 @@ class ConnCheck(aetest.Testcase):
 
         d = testbed.devices[device]
         if not d.connected:
-            self.failed(f"Device {device} is not connected; failed to learn operational details")
+            self.failed(
+                f"Device {device} is not connected; failed to learn operational details"
+            )
             return
 
         log.info(banner(f"Getting interface data from {device}"))
@@ -85,7 +93,13 @@ class ConnCheck(aetest.Testcase):
             table_data.append(table_row)
             has_failed = True
 
-        log.info(tabulate(table_data, headers=["Device", "Interface", "Address", "Passed/Failed"], tablefmt="orgtbl"))
+        log.info(
+            tabulate(
+                table_data,
+                headers=["Device", "Interface", "Address", "Passed/Failed"],
+                tablefmt="orgtbl",
+            )
+        )
 
         if has_failed:
             self.failed(f"No IP address found for {HOST_DP_INTF}!")
@@ -101,7 +115,7 @@ class ConnCheck(aetest.Testcase):
 
     @aetest.test
     def check_curl(self, device):
-        if "Cisco Live 2023 and LTRCRT-2000" not in self.curl:
+        if "CiscoLive 2025 and LTRCRT-2000" not in self.curl:
             self.failed(f"cURL to {TEST_URL} failed from {device}: '{self.curl}'!")
         else:
             self.passed(f"Loaded {TEST_URL} successfully from {device}\n{self.curl}")

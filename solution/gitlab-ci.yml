@@ -8,7 +8,7 @@ stages:
   - test:fabric
   - test:connectivity
   - deploy:prod
-image: xorrkaz/ltrcrt-2000:latest
+image: ralphschmieder/ltrcrt-2000:latest
 
 # This step is run before every step.
 # This command removes the world-writeable bit from the ansible subdirectory

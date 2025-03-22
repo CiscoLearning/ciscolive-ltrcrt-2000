@@ -6,16 +6,16 @@ gitlab_password="C1sco12345"
 gitlab_wait_time=45
 devbox_user="developer"
 # prints colored text
-success () {
-    COLOR="92m"; # green
-    STARTCOLOR="\e[$COLOR";
-    ENDCOLOR="\e[0m";
-    printf "$STARTCOLOR%b$ENDCOLOR" "done\n";
+success() {
+    COLOR="92m" # green
+    STARTCOLOR="\e[$COLOR"
+    ENDCOLOR="\e[0m"
+    printf "$STARTCOLOR%b$ENDCOLOR" "done\n"
 }
 
 echo ""
 printf "Launching Gitlab CE and Vault..."
-docker-compose up -d 2> gitlab_setup.log
+docker-compose up -d 2>gitlab_setup.log
 success
 
 printf "Waiting for Gitlab CE to become available..."
@@ -61,10 +61,10 @@ fi
 
 printf "Configuring external URL for GitLab..."
 docker-compose exec gitlab /bin/bash -c "echo external_url \'${gitlab_host}\' >> /etc/gitlab/gitlab.rb"
-docker-compose exec gitlab gitlab-ctl reconfigure >> gitlab_setup.log 2>&1
+docker-compose exec gitlab gitlab-ctl reconfigure >>gitlab_setup.log 2>&1
 success
 
 printf "Registering GitLab Runner, waiting ${gitlab_wait_time} second(s) for gitlab to become available..."
 sleep ${gitlab_wait_time}
-docker-compose exec runner1 gitlab-runner register >> gitlab_setup.log 2>&1
+docker-compose exec runner1 gitlab-runner register >>gitlab_setup.log 2>&1
 success
