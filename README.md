@@ -9,7 +9,7 @@
 
 ### Bootstrap
 
-To bootstrap the environment, import <https://github.com/rschmied/ciscolive-ltrcrt-2000/blob/main/README.md> into your CML instance, then start the imported lab and wait for the *Devbox* to become ready (the green check mark is shown).
+To bootstrap the environment, import [Devbox.yaml](https://github.com/rschmied/ciscolive-ltrcrt-2000/blob/main/helper-files/Devbox.yaml) into your CML instance, then start the imported lab and wait for the *Devbox* to become ready (the green check mark is shown).
 
 ### Initial setup
 
