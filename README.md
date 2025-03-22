@@ -9,7 +9,7 @@
 
 ### Bootstrap
 
-To bootstrap the environment, import [](/helper-files/Devbox.yaml) into your CML instance, then start the imported lab and wait for the *Devbox* to become ready (the green check mark is shown).
+To bootstrap the environment, import <https://github.com/rschmied/ciscolive-ltrcrt-2000/blob/main/README.md> into your CML instance, then start the imported lab and wait for the *Devbox* to become ready (the green check mark is shown).
 
 ### Initial setup
 
@@ -21,7 +21,7 @@ The following steps will complete the installation of the *Devbox*:
 4. Clone this repo:
 
     ```sh
-    git clone https://github.com/CiscoLearning/ciscolive-ltrcrt-2000
+    git clone https://github.com/rschmied/ciscolive-ltrcrt-2000
     ```
 
 5. Change into the cloned repository: `cd ciscolive-ltrcrt-2000`
