@@ -22,9 +22,9 @@ echo "Shutting down and deleting any previous labs"
 (cml use -n "Production" && cml rm -f --no-confirm) >/dev/null 2>&1 || true
 (cml use -n "Testing" && cml rm -f --no-confirm) >/dev/null 2>&1 || true
 
-echo "Spinning up LTRCRT-2000 lab topologies"
-cml up -f ${LAB}/helper-files/production-iol.yaml >/dev/null 2>&1
-cml up -f ${LAB}/helper-files/testing-iol.yaml >/dev/null 2>&1
+echo "Loading LTRCRT-2000 lab topologies"
+cml up -f ${LAB}/helper-files/production-iol.yaml --no-start >/dev/null 2>&1
+cml up -f ${LAB}/helper-files/testing-iol.yaml --no-start >/dev/null 2>&1
 
 echo "Spinning up GitLab-CE"
 cwd=$(pwd)
