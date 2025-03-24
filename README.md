@@ -30,6 +30,8 @@ The following steps will complete the installation of the *Devbox*:
 
 You should now be able to follow the instructions from the lab guide.
 
+git checkout -b clus2025 --track origin/clus2025
+
 ## Running the lab at home
 
 If you have your own copy of Cisco Modeling Labs, you can run this lab at home with some minor changes to the code.  First, clone this repo to your local machine.
