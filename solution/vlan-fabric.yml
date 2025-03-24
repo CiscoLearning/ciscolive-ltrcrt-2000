@@ -42,6 +42,3 @@ fabric:
     sw-acc-01:
       - port: Ethernet0/2
         access_vlan: 10
-    sw-acc-02:
-      - port: Ethernet0/2
-        access_vlan: 20
