@@ -785,7 +785,7 @@ nodes:
                 match:
                   name: ens2
                 addresses:
-                  - 10.10.20.50/24
+                  - 10.10.20.181/24
               ens3:
                 match:
                   name: ens3

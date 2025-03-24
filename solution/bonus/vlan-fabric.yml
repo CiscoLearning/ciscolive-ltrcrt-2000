@@ -10,15 +10,17 @@ fabric:
     l2:
       - name: HOSTS
         vlan_id: 10
+        shutdown: disabled
       - name: SERVERS
         vlan_id: 20
+        shutdown: disabled
     # For those same VLANs, provide L3 parameters where needed.
     l3:
       - vlan: 10
         subnet: 10.10.X.0/24
         svi_address: 10.10.X.1
-        # Do we need a DHCP server for this VLAN?
-        # If so, specify which addresses _not_ to use (this is for simplicity with the CLI).
+        # Do we need a DHCP server for this VLAN? If so, specify which
+        # addresses _not_ to use (this is for simplicity with the CLI).
         dhcp: true
         dhcp_exclude:
           - { start: 10.10.X.1, end: 10.10.X.127 }

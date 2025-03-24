@@ -71,3 +71,7 @@ printf "Registering GitLab Runner, waiting ${gitlab_wait_time} second(s) for Git
 sleep ${gitlab_wait_time}
 docker-compose exec runner1 gitlab-runner register >>gitlab_setup.log 2>&1
 success
+
+printf "pulling runner helper"
+docker pull registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v17.9.2
+success
