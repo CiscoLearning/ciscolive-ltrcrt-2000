@@ -1,0 +1,7 @@
+#cloud-config
+password: cisco
+chpasswd: { expire: False }
+hostname: server-01
+ssh_pwauth: True
+ssh_authorized_keys:
+  - your-ssh-pubkey-line-goes-here
