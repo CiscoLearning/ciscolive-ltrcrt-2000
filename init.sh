@@ -31,3 +31,6 @@ cwd=$(pwd)
 cd ${LAB}/gitlab
 make
 cd ${cwd}
+echo "Pulling pipeline image"
+docker pull ralphschmieder/ltrcrt-2000:latest
+echo "Done!"

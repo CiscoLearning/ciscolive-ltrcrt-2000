@@ -3,7 +3,7 @@ version: "3.4"
 services:
   gitlab:
     restart: always
-    image: gitlab/gitlab-ce:13.10.2-ce.0
+    image: gitlab/gitlab-ce:17.9.2-ce.0
     hostname: gitlab
     # volumes:
     #   - ./container-data/gitlab/etc/gitlab:/etc/gitlab
@@ -23,7 +23,7 @@ services:
     #   devtools-gitlab: 10.10.20.50
   runner1:
     restart: always
-    image: gitlab/gitlab-runner:v13.10.0
+    image: gitlab/gitlab-runner:v17.9.2
     environment:
       - REGISTRATION_TOKEN=sandboxrunners
       - RUNNER_NAME=runner1
