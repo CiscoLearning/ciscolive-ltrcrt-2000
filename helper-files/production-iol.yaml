@@ -1,7 +1,7 @@
 annotations:
-  - border_color: '#00000000'
-    border_style: ''
-    color: '#808080FF'
+  - border_color: "#00000000"
+    border_style: ""
+    color: "#808080FF"
     rotation: 0
     text_bold: false
     text_content: |-
@@ -27,9 +27,9 @@ smart_annotations:
     tag_size: 14
     group_distance: 400
     thickness: 1
-    border_style: ''
-    fill_color: '#FFD10080'
-    border_color: '#00000080'
+    border_style: ""
+    fill_color: "#FFD10080"
+    border_color: "#00000080"
     z_index: 4
   - tag: core
     is_on: true
@@ -40,9 +40,9 @@ smart_annotations:
     tag_size: 14
     group_distance: 400
     thickness: 1
-    border_style: ''
-    fill_color: '#009C8C80'
-    border_color: '#00000080'
+    border_style: ""
+    fill_color: "#009C8C80"
+    border_color: "#00000080"
     z_index: 2
   - tag: distribution
     is_on: true
@@ -53,9 +53,9 @@ smart_annotations:
     tag_size: 14
     group_distance: 400
     thickness: 1
-    border_style: ''
-    fill_color: '#D5006D80'
-    border_color: '#00000080'
+    border_style: ""
+    fill_color: "#D5006D80"
+    border_color: "#00000080"
     z_index: 3
   - tag: edge
     is_on: true
@@ -66,9 +66,9 @@ smart_annotations:
     tag_size: 14
     group_distance: 400
     thickness: 1
-    border_style: ''
-    fill_color: '#F8A30080'
-    border_color: '#00000080'
+    border_style: ""
+    fill_color: "#F8A30080"
+    border_color: "#00000080"
     z_index: 1
 nodes:
   - boot_disk_size: null
@@ -778,25 +778,22 @@ nodes:
           ssh_pwauth: True
           ssh_authorized_keys:
             - your-ssh-pubkey-line-goes-here
-          write_files:
-            - path: /etc/netplan/50-cloud-init.yaml
-              content: |
-                network:
-                  ethernets:
-                    ens2:
-                      match:
-                        name: ens2
-                      addresses:
-                        - 10.10.20.175/24
-                      set-name: ens2
-                    ens3:
-                      match:
-                        name: ens3
-                      dhcp4: true
-                      set-name: ens3
-                  version: 2
-          runcmd:
-            - [netplan, apply]
+      - name: network-config
+        content: |-
+          #network-config
+          network:
+            ethernets:
+              ens2:
+                match:
+                  name: ens2
+                addresses:
+                  - 10.10.20.175/24
+              ens3:
+                match:
+                  name: ens3
+                dhcp4: true
+                set-name: ens3
+            version: 2
     cpu_limit: null
     cpus: null
     data_volume: null
@@ -1106,7 +1103,7 @@ links:
     conditioning: {}
     label: rtr-edge-Ethernet0/2<->sw-core-Ethernet0/1
 lab:
-  description: ''
-  notes: ''
+  description: ""
+  notes: ""
   title: Production
   version: 0.3.0
