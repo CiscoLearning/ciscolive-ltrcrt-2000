@@ -16,8 +16,9 @@ image: ralphschmieder/ltrcrt-2000:latest
 before_script:
   - chmod 0770 iac-infra/ansible
 
-# Deploy our configuration using Ansible only when the triggering commit is _not_ to the main branch.
-# We cd to the iac-infra/ansible subdirectory so Ansible will find all the right files.
+# Deploy our configuration using Ansible only when the triggering commit is
+# _not_ to the main branch. We cd to the iac-infra/ansible subdirectory so
+# Ansible will find all the right files.
 config_test:
   stage: deploy:test
   except:
@@ -25,9 +26,9 @@ config_test:
   script:
     - cd iac-infra/ansible && ansible-playbook -i inventory/test.yml -e @../../vlan-fabric.yml deploy-vlan-fabric.yml
 
-# Use pyATS to run a test job to confirm various elements of our VLAN fabric are correct.
-# Since we want to make sure STP converges, we delay this by one minutes.
-# It only runs after we've deployed our configuration into test.
+# Use pyATS to run a test job to confirm various elements of our VLAN fabric
+# are correct. Since we want to make sure STP converges, we delay this by
+# one minutes. It only runs after we've deployed our configuration into test.
 test_vlan_fabric:
   stage: test:fabric
   needs:
@@ -49,8 +50,9 @@ test_connectivity:
   script:
     - pyats run job iac-infra/tests/test-connectivity.py
 
-# Deploy our configuration to production using Ansible only when the triggering commit _is_ to the main branch.
-# We cd to the iac-infra/ansible subdirectory so Ansible will find all the right files.
+# Deploy our configuration to production using Ansible only when the triggering
+# commit _is_ to the main branch. We cd to the iac-infra/ansible subdirectory
+# so Ansible will find all the right files.
 config_prod:
   stage: deploy:prod
   only:

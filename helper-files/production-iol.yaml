@@ -78,7 +78,6 @@ nodes:
     data_volume: null
     hide_links: true
     id: n0
-    image_definition: null
     label: sw-oob-mgmt
     node_definition: unmanaged_switch
     parameters: {}
@@ -156,7 +155,6 @@ nodes:
     data_volume: null
     hide_links: true
     id: n1
-    image_definition: null
     label: Mgmt
     node_definition: external_connector
     parameters: {}
@@ -289,7 +287,6 @@ nodes:
     data_volume: null
     hide_links: false
     id: n2
-    image_definition: null
     label: sw-core
     node_definition: ioll2-xe
     parameters: {}
@@ -439,7 +436,6 @@ nodes:
     data_volume: null
     hide_links: false
     id: n3
-    image_definition: null
     label: sw-dist-01
     node_definition: ioll2-xe
     parameters: {}
@@ -589,7 +585,6 @@ nodes:
     data_volume: null
     hide_links: false
     id: n4
-    image_definition: null
     label: sw-dist-02
     node_definition: ioll2-xe
     parameters: {}
@@ -732,7 +727,6 @@ nodes:
     data_volume: null
     hide_links: false
     id: n5
-    image_definition: null
     label: sw-acc-01
     node_definition: ioll2-xe
     parameters: {}
@@ -799,7 +793,6 @@ nodes:
     data_volume: null
     hide_links: false
     id: n6
-    image_definition: null
     label: host-01
     node_definition: ubuntu
     parameters: {}
@@ -828,7 +821,6 @@ nodes:
     data_volume: null
     hide_links: false
     id: n7
-    image_definition: null
     label: Internet
     node_definition: external_connector
     parameters: {}
@@ -976,7 +968,6 @@ nodes:
     data_volume: null
     hide_links: false
     id: n8
-    image_definition: null
     label: rtr-edge
     node_definition: iol-xe
     parameters: {}

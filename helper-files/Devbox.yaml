@@ -40,8 +40,10 @@ nodes:
               shell: /bin/bash
               gecos: Developer User
           runcmd:
+            - apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AA16FCBCA621E701
+            - apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
             - apt update
-            - apt-get install -y python3-venv git make docker.io docker-compose tree jq
+            - apt-get install -y python3-venv git make docker.io docker-compose tree jq terraform
             - apt-get full-upgrade -y && touch /run/reboot
           power_state:
             mode: reboot

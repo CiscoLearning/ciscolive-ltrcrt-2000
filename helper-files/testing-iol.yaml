@@ -736,8 +736,8 @@ nodes:
     parameters: {}
     ram: null
     tags:
-      - distribution
       - access
+      - distribution
     x: -440
     y: 40
     interfaces:
