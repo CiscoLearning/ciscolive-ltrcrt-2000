@@ -16,25 +16,53 @@
       with_items: "{{ fabric.vlans.l2 }}"
       when: '"distribution" in group_names'
 
-    - name: Configure distribution trunk port
+    - name: Configure distribution trunk port (encap)
       ios_l2_interfaces:
         config:
           - name: "{{ item.port }}"
             trunk:
               allowed_vlans: "{{ item.allowed_vlans }}"
               encapsulation: dot1q
-        state: replaced
+        state: merged
       with_items: "{{ fabric.trunk_ports.distribution }}"
       when: '"distribution" in group_names'
+      register: output
 
-    - name: Configure access trunk port
+    # - name: "trunk debug"
+    #   debug:
+    #     msg: "{{ output.results }}"
+
+    - name: Configure distribution trunk port (mode)
+      ios_l2_interfaces:
+        config:
+          - name: "{{ item.port }}"
+            mode: trunk
+        state: merged
+      with_items: "{{ fabric.trunk_ports.distribution }}"
+      when: '"distribution" in group_names'
+      register: output
+
+    # - name: "trunk debug"
+    #   debug:
+    #     msg: "{{ result.results }}"
+
+    - name: Configure access trunk port (encap)
       ios_l2_interfaces:
         config:
           - name: "{{ item.port }}"
             trunk:
               allowed_vlans: "{{ item.allowed_vlans }}"
               encapsulation: dot1q
-        state: replaced
+        state: merged
+      with_items: "{{ fabric.trunk_ports.access }}"
+      when: '"access" in group_names'
+
+    - name: Configure access trunk port (mode)
+      ios_l2_interfaces:
+        config:
+          - name: "{{ item.port }}"
+            mode: trunk
+        state: merged
       with_items: "{{ fabric.trunk_ports.access }}"
       when: '"access" in group_names'
 
@@ -49,7 +77,7 @@
           - name: "{{ item.port }}"
             access:
               vlan: "{{ item.access_vlan }}"
-        state: replaced
+        state: merged
       with_items: "{{ fabric.access_ports[inventory_hostname] }}"
       when: "inventory_hostname in fabric.access_ports"
 
@@ -71,7 +99,7 @@
         config:
           - name: Vlan{{ item.vlan }}
             enabled: true
-        state: replaced
+        state: merged
       with_items: "{{ fabric.vlans.l3 }}"
 
     - name: Set SVI L3 config
@@ -80,7 +108,7 @@
           - name: Vlan{{ item.vlan }}
             ipv4:
               - address: "{{ item.svi_address | replace('X', dist_octet|string) }}/{{ item.subnet.split('/')[1] }}"
-        state: replaced
+        state: merged
       with_items: "{{ fabric.vlans.l3 }}"
 
     - name: Enable OSPF on SVI
@@ -122,3 +150,4 @@
       with_nested:
         - "{{ range(groups['distribution'] | length)|list }}"
         - "{{ fabric.vlans.l3 }}"
+

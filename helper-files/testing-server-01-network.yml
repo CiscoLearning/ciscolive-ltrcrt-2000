@@ -1,0 +1,21 @@
+#network-config
+network:
+  ethernets:
+    ens2:
+      match:
+        name: ens2
+      addresses:
+        - 10.10.20.185/24
+    ens3:
+      match:
+        name: ens3
+      addresses:
+        - 10.20.2.10/24
+      routes:
+        - to: 0.0.0.0/0
+          via: 10.20.2.1
+      nameservers:
+        addresses:
+          - 192.168.255.1
+      set-name: ens3
+  version: 2

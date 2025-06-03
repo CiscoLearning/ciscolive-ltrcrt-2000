@@ -1,19 +1,11 @@
-# Import necessary modules
-import logging
-import os
+#!/usr/bin/env python
+
 import json
+import logging
+
 from pyats import aetest
 from pyats.log.utils import banner
-from genie.testbed import load as tbload
 from tabulate import tabulate
-from yaml import load
-
-# Try importing CLoader for YAML parsing for better performance
-# Fallback to default Loader if CLoader is not available
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
 
 # Configure logging for the script
 log = logging.getLogger(__name__)
@@ -24,29 +16,12 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 PING_TARGET = "192.168.255.1"
 HOST_DP_INTF = "ens3"
 
+
 # Define a class for VLAN setup, which is a common setup step for all tests
 class VlanSetup(aetest.CommonSetup):
-
     # Subsection to connect to devices
     @aetest.subsection
-    def connect_to_devices(self):
-        creds = {}
-        # Construct the file path to the credentials file
-        cred_file = os.path.realpath(os.path.join(os.path.dirname(__file__), "..", "ansible", "group_vars", "all.yml"))
-        
-        # Load credentials from the specified YAML file
-        with open(cred_file) as fd:
-            creds = load(fd, Loader=Loader)
-
-        # Set environment variables for pyATS with the loaded credentials
-        os.environ["PYATS_USERNAME"] = creds["ansible_ssh_user"]
-        os.environ["PYATS_PASSWORD"] = creds["ansible_ssh_pass"]
-        os.environ["PYATS_AUTH_PASS"] = creds["ansible_ssh_pass"]
-
-        # Load the testbed configuration from the specified YAML file
-        testbed = tbload(os.path.realpath(os.path.join(os.path.dirname(__file__), "testbed", "testing.yml")))
-        self.parent.parameters["testbed"] = testbed
-
+    def connect_to_devices(self, testbed):
         # Connect to all devices in the testbed in parallel
         testbed.connect()
 
@@ -54,21 +29,25 @@ class VlanSetup(aetest.CommonSetup):
     @aetest.subsection
     def prepare_testcases(self, testbed):
         # Mark the ConnCheck test case to run for each host device in the testbed
-        aetest.loop.mark(ConnCheck, device=[d.name for d in testbed if (d.type == "host")])
+        aetest.loop.mark(
+            ConnCheck, device=[d.name for d in testbed if (d.type == "host")]
+        )
+
 
 # Define a class for connection check test case, inheriting from aetest.Testcase
 class ConnCheck(aetest.Testcase):
-
     # Setup function to be run before tests
     @aetest.setup
     def setup(self, device, testbed):
         global PING_TARGET
         # Get the device object from the testbed
         d = testbed.devices[device]
-        
+
         # Check if the device is connected
         if not d.connected:
-            self.failed(f"Device {device} is not connected; failed to learn operational details")
+            self.failed(
+                f"Device {device} is not connected; failed to learn operational details"
+            )
             return
 
         # Log and get interface data from the device using the 'ip' command
@@ -101,7 +80,13 @@ class ConnCheck(aetest.Testcase):
             has_failed = True
 
         # Log the results in a table format
-        log.info(tabulate(table_data, headers=["Device", "Interface", "Address", "Passed/Failed"], tablefmt="orgtbl"))
+        log.info(
+            tabulate(
+                table_data,
+                headers=["Device", "Interface", "Address", "Passed/Failed"],
+                tablefmt="orgtbl",
+            )
+        )
 
         # Determine the outcome based on whether an IP address was found
         if has_failed:

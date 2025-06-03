@@ -1,7 +1,6 @@
 lab:
-  description: ''
-  notes: ''
-  timestamp: 1618268897.2917004
+  description: ""
+  notes: ""
   title: Devbox
   version: 0.0.4
 nodes:
@@ -22,49 +21,56 @@ nodes:
     node_definition: ubuntu
     x: -550
     y: -50
-    configuration: |-
-      #cloud-config
-      password: cisco
-      chpasswd: { expire: False }
-      hostname: devbox
-      ssh_pwauth: True
-      ssh_authorized_keys:
-        - your-ssh-pubkey-line-goes-here
-      users:
-        - default
-        - name: developer
-          groups: docker
-          plain_text_passwd: C1sco12345
-          lock_passwd: false
-          shell: /bin/bash
-          gecos: Developer User
-      write_files:
-        - path: /etc/netplan/50-cloud-init.yaml
-          content: |
-            network:
-              ethernets:
-                ens2:
-                  match:
-                    name: ens2
-                  addresses:
-                    - 198.18.1.11/24
-                  set-name: ens2
-                  gateway4: 198.18.1.1
-                  nameservers:
-                    addresses: [1.1.1.1]
-                ens3:
-                  match:
-                    name: ens3
-                  addresses:
-                    - 10.10.20.50/24
-                  set-name: ens3
-              version: 2
-      runcmd:
-        - [netplan, apply]
-        - [apt, update]
-        - [apt-get, install, -y, python3-venv, make, docker.io, docker-compose, tree, jq]
-        - [apt-get, install, -y, --only-upgrade, git]
-    image_definition: ubuntu-20-04
+    configuration:
+      - name: user-data
+        content: |-
+          #cloud-config
+          password: cisco
+          chpasswd: { expire: False }
+          hostname: devbox
+          ssh_pwauth: True
+          ssh_authorized_keys:
+            - your-ssh-pubkey-line-goes-here
+          users:
+            - default
+            - name: developer
+              groups: docker
+              plain_text_passwd: C1sco12345
+              lock_passwd: false
+              shell: /bin/bash
+              gecos: Developer User
+          runcmd:
+            - apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AA16FCBCA621E701
+            - apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+            - apt update
+            - apt-get install -y python3-venv git make docker.io docker-compose tree jq terraform
+            - apt-get full-upgrade -y && touch /run/reboot
+          power_state:
+            mode: reboot
+            condition: test -f /run/reboot
+      - name: network-config
+        content: |-
+          #network-config
+          network:
+            ethernets:
+              ens2:
+                match:
+                  name: ens2
+                addresses:
+                  - 198.18.1.11/24
+                set-name: ens2
+                routes:
+                  - to: 0.0.0.0/0
+                    via: 198.18.1.1
+                nameservers:
+                  addresses: [1.1.1.1]
+              ens3:
+                match:
+                  name: ens3
+                addresses:
+                  - 10.10.20.50/24
+                set-name: ens3
+            version: 2
     ram: 8192
     cpus: 4
     tags: []

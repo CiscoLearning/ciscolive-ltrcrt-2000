@@ -1,0 +1,1100 @@
+annotations:
+  - border_color: "#00000000"
+    border_style: ""
+    color: "#808080FF"
+    rotation: 0
+    text_bold: false
+    text_content: |-
+      Links are hidden for Mgmt and sw-oob-mgmt.
+      To show them, right-click the node and select
+      "Show links" from the menu.
+    text_font: sans-serif
+    text_italic: false
+    text_size: 12
+    text_unit: pt
+    thickness: 1
+    type: text
+    x1: -880.0
+    y1: 40.0
+    z_index: 0
+smart_annotations:
+  - tag: access
+    is_on: true
+    padding: 35
+    label: access
+    tag_offset_x: 0
+    tag_offset_y: 0
+    tag_size: 14
+    group_distance: 400
+    thickness: 1
+    border_style: ""
+    fill_color: "#FFD10080"
+    border_color: "#00000080"
+    z_index: 4
+  - tag: core
+    is_on: true
+    padding: 35
+    label: core
+    tag_offset_x: 0
+    tag_offset_y: 0
+    tag_size: 14
+    group_distance: 400
+    thickness: 1
+    border_style: ""
+    fill_color: "#009C8C80"
+    border_color: "#00000080"
+    z_index: 2
+  - tag: distribution
+    is_on: true
+    padding: 35
+    label: distribution
+    tag_offset_x: 0
+    tag_offset_y: 0
+    tag_size: 14
+    group_distance: 400
+    thickness: 1
+    border_style: ""
+    fill_color: "#D5006D80"
+    border_color: "#00000080"
+    z_index: 3
+  - tag: edge
+    is_on: true
+    padding: 35
+    label: edge
+    tag_offset_x: 0
+    tag_offset_y: 0
+    tag_size: 14
+    group_distance: 400
+    thickness: 1
+    border_style: ""
+    fill_color: "#F8A30080"
+    border_color: "#00000080"
+    z_index: 1
+nodes:
+  - boot_disk_size: null
+    configuration: []
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: true
+    id: n0
+    label: sw-oob-mgmt
+    node_definition: unmanaged_switch
+    parameters: {}
+    ram: null
+    tags: []
+    x: -600
+    y: -50
+    interfaces:
+      - id: i0
+        label: port0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i1
+        label: port1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i2
+        label: port2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i3
+        label: port3
+        mac_address: null
+        type: physical
+        slot: 3
+      - id: i4
+        label: port4
+        mac_address: null
+        type: physical
+        slot: 4
+      - id: i5
+        label: port5
+        mac_address: null
+        type: physical
+        slot: 5
+      - id: i6
+        label: port6
+        mac_address: null
+        type: physical
+        slot: 6
+      - id: i7
+        label: port7
+        mac_address: null
+        type: physical
+        slot: 7
+      - id: i8
+        label: port8
+        mac_address: null
+        type: physical
+        slot: 8
+      - id: i9
+        label: port9
+        mac_address: null
+        type: physical
+        slot: 9
+      - id: i10
+        label: port10
+        mac_address: null
+        type: physical
+        slot: 10
+      - id: i11
+        label: port11
+        mac_address: null
+        type: physical
+        slot: 11
+  - boot_disk_size: null
+    configuration:
+      - name: default
+        content: System Bridge
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: true
+    id: n1
+    label: Mgmt
+    node_definition: external_connector
+    parameters: {}
+    ram: null
+    tags: []
+    x: -850
+    y: -50
+    interfaces:
+      - id: i0
+        label: port
+        mac_address: null
+        type: physical
+        slot: 0
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          !
+          ! Last configuration change at 16:16:38 UTC Fri Mar 21 2025
+          !
+          version 17.15
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          service compress-config
+          !
+          hostname sw-core
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          no logging console
+          no aaa new-model
+          !
+          !
+          !
+          !
+          ip vrf management
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          ip audit notify log
+          ip audit po max-events 100
+          ip name-server 192.168.255.1
+          ip cef
+          login on-success log
+          no ipv6 cef
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          spanning-tree mode pvst
+          spanning-tree extend system-id
+          !
+          enable secret cisco
+          !
+          username admin privilege 15 secret cisco
+          !
+          vlan internal allocation policy ascending
+          vtp mode transparent
+          !
+          !
+          !
+          !
+          !
+          interface Ethernet0/0
+           no switchport
+           ip vrf forwarding management
+           ip address 10.10.20.171 255.255.255.0
+          !
+          interface Ethernet0/1
+           no switchport
+           ip address 10.0.0.2 255.255.255.252
+          !
+          interface Ethernet0/2
+           no switchport
+           ip address 10.0.0.5 255.255.255.252
+          !
+          interface Ethernet0/3
+           no switchport
+           ip address 10.0.0.9 255.255.255.252
+          !
+          router ospf 1
+           network 10.0.0.0 0.0.0.3 area 0
+           network 10.0.0.4 0.0.0.3 area 0
+           network 10.0.0.8 0.0.0.3 area 0
+          !
+          ip forward-protocol nd
+          !
+          !
+          ip http server
+          ip http secure-server
+          ip ssh bulk-mode 131072
+          ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          !
+          !
+          !
+          !
+          control-plane
+          !
+          !
+          !
+          line con 0
+           exec-timeout 0 0
+           logging synchronous
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           login local
+           transport input ssh
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n2
+    label: sw-core
+    node_definition: ioll2-xe
+    parameters: {}
+    ram: null
+    tags:
+      - edge
+      - core
+    x: -320
+    y: -200
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          !
+          ! Last configuration change at 16:16:38 UTC Fri Mar 21 2025
+          !
+          version 17.15
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          service compress-config
+          !
+          hostname sw-dist-01
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          no logging console
+          no aaa new-model
+          !
+          !
+          !
+          !
+          ip vrf management
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          ip audit notify log
+          ip audit po max-events 100
+          ip cef
+          login on-success log
+          no ipv6 cef
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          spanning-tree mode pvst
+          spanning-tree extend system-id
+          enable secret cisco
+          !
+          username admin privilege 15 secret cisco
+          !
+          vlan internal allocation policy ascending
+          vtp mode transparent
+          !
+          !
+          !
+          !
+          !
+          interface Ethernet0/0
+           no switchport
+           ip vrf forwarding management
+           ip address 10.10.20.172 255.255.255.0
+          !
+          interface Ethernet0/1
+           no switchport
+           ip address 10.0.0.6 255.255.255.252
+          !
+          interface Ethernet0/2
+           switchport trunk encapsulation dot1q
+           switchport mode trunk
+          !
+          interface Ethernet0/3
+          !
+          router ospf 1
+           passive-interface default
+           no passive-interface Ethernet0/1
+           network 10.0.0.4 0.0.0.3 area 0
+          !
+          ip forward-protocol nd
+          !
+          !
+          ip http server
+          ip http secure-server
+          ip ssh bulk-mode 131072
+          ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          !
+          !
+          !
+          !
+          control-plane
+          !
+          !
+          !
+          line con 0
+           exec-timeout 0 0
+           logging synchronous
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           login local
+           transport input ssh
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n3
+    label: sw-dist-01
+    node_definition: ioll2-xe
+    parameters: {}
+    ram: null
+    tags:
+      - core
+      - distribution
+    x: -440
+    y: -40
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          !
+          ! Last configuration change at 16:16:38 UTC Fri Mar 21 2025
+          !
+          version 17.15
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          service compress-config
+          !
+          hostname sw-dist-02
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          no logging console
+          no aaa new-model
+          !
+          !
+          !
+          !
+          ip vrf management
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          ip audit notify log
+          ip audit po max-events 100
+          ip cef
+          login on-success log
+          no ipv6 cef
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          spanning-tree mode pvst
+          spanning-tree extend system-id
+          enable secret cisco
+          !
+          username admin privilege 15 secret cisco
+          !
+          vlan internal allocation policy ascending
+          vtp mode transparent
+          !
+          !
+          !
+          !
+          !
+          interface Ethernet0/0
+           no switchport
+           ip vrf forwarding management
+           ip address 10.10.20.173 255.255.255.0
+          !
+          interface Ethernet0/1
+           no switchport
+           ip address 10.0.0.10 255.255.255.252
+          !
+          interface Ethernet0/2
+           switchport trunk encapsulation dot1q
+           switchport mode trunk
+          !
+          interface Ethernet0/3
+          !
+          router ospf 1
+           passive-interface default
+           no passive-interface Ethernet0/1
+           network 10.0.0.8 0.0.0.3 area 0
+          !
+          ip forward-protocol nd
+          !
+          !
+          ip http server
+          ip http secure-server
+          ip ssh bulk-mode 131072
+          ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          !
+          !
+          !
+          !
+          control-plane
+          !
+          !
+          !
+          line con 0
+           exec-timeout 0 0
+           logging synchronous
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           login local
+           transport input ssh
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n4
+    label: sw-dist-02
+    node_definition: ioll2-xe
+    parameters: {}
+    ram: null
+    tags:
+      - core
+      - distribution
+    x: -200
+    y: -40
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          !
+          ! Last configuration change at 16:16:38 UTC Fri Mar 21 2025
+          !
+          version 17.15
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          service compress-config
+          !
+          hostname sw-acc-01
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          no logging console
+          no aaa new-model
+          !
+          !
+          !
+          !
+          ip vrf management
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          ip audit notify log
+          ip audit po max-events 100
+          ip cef
+          login on-success log
+          no ipv6 cef
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          spanning-tree mode pvst
+          spanning-tree extend system-id
+          enable secret cisco
+          !
+          username admin privilege 15 secret cisco
+          !
+          vlan internal allocation policy ascending
+          vtp mode transparent
+          !
+          !
+          !
+          !
+          !
+          interface Ethernet0/0
+           no switchport
+           ip vrf forwarding management
+           ip address 10.10.20.174 255.255.255.0
+          !
+          interface Ethernet0/1
+           switchport trunk encapsulation dot1q
+           switchport mode trunk
+          !
+          interface Ethernet0/2
+          !
+          interface Ethernet0/3
+          !
+          ip forward-protocol nd
+          !
+          !
+          ip http server
+          ip http secure-server
+          ip ssh bulk-mode 131072
+          ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          !
+          !
+          !
+          !
+          control-plane
+          !
+          !
+          !
+          line con 0
+           exec-timeout 0 0
+           logging synchronous
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           login local
+           transport input ssh
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n5
+    label: sw-acc-01
+    node_definition: ioll2-xe
+    parameters: {}
+    ram: null
+    tags:
+      - access
+      - distribution
+    x: -440
+    y: 120
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: user-data
+        content: |-
+          #cloud-config
+          password: cisco
+          chpasswd: { expire: False }
+          hostname: host-01
+          ssh_pwauth: True
+          ssh_authorized_keys:
+            - your-ssh-pubkey-line-goes-here
+      - name: network-config
+        content: |-
+          #network-config
+          network:
+            ethernets:
+              ens2:
+                match:
+                  name: ens2
+                addresses:
+                  - 10.10.20.175/24
+              ens3:
+                match:
+                  name: ens3
+                dhcp4: true
+                set-name: ens3
+            version: 2
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n6
+    label: host-01
+    node_definition: ubuntu
+    parameters: {}
+    ram: null
+    tags:
+      - access
+    x: -440
+    y: 280
+    interfaces:
+      - id: i0
+        label: ens2
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i1
+        label: ens3
+        mac_address: null
+        type: physical
+        slot: 1
+  - boot_disk_size: null
+    configuration:
+      - name: default
+        content: NAT
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n7
+    label: Internet
+    node_definition: external_connector
+    parameters: {}
+    ram: null
+    tags: []
+    x: -320
+    y: -480
+    interfaces:
+      - id: i0
+        label: port
+        mac_address: null
+        type: physical
+        slot: 0
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          !
+          ! Last configuration change at 16:16:38 UTC Fri Mar 21 2025
+          !
+          version 17.15
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          !
+          hostname rtr-edge
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          no logging console
+          no aaa new-model
+          !
+          !
+          !
+          !
+          ip vrf management
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          ip domain name ciscolive.lab
+          ip cef
+          login on-success log
+          no ipv6 cef
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          spanning-tree mode rapid-pvst
+          !
+          enable secret cisco
+          !
+          username admin privilege 15 secret cisco
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          interface Ethernet0/0
+           ip vrf forwarding management
+           ip address 10.10.20.170 255.255.255.0
+          !
+          interface Ethernet0/1
+           ip address dhcp
+           ip nat outside
+          !
+          interface Ethernet0/2
+           ip address 10.0.0.1 255.255.255.252
+           ip nat inside
+          !
+          interface Ethernet0/3
+           no ip address
+           shutdown
+          !
+          router ospf 1
+           network 10.0.0.0 0.0.0.3 area 0
+           default-information originate
+          !
+          ip forward-protocol nd
+          !
+          !
+          no ip http server
+          ip http secure-server
+          ip nat inside source list 10 interface Ethernet0/1 overload
+          ip ssh bulk-mode 131072
+          ip access-list standard 10
+           10 permit 10.0.0.0 0.0.0.3
+           20 permit 10.0.0.4 0.0.0.3
+           30 permit 10.0.0.8 0.0.0.3
+          !
+          !
+          !
+          control-plane
+          !
+          !
+          !
+          line con 0
+           exec-timeout 0 0
+           logging synchronous
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           login local
+           transport input ssh
+          !
+          !
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n8
+    label: rtr-edge
+    node_definition: iol-xe
+    parameters: {}
+    ram: null
+    tags:
+      - edge
+    x: -320
+    y: -360
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: Ethernet0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Ethernet0/1
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Ethernet0/2
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Ethernet0/3
+        mac_address: null
+        type: physical
+        slot: 3
+links:
+  - id: l0
+    n1: n0
+    n2: n1
+    i1: i0
+    i2: i0
+    conditioning: {}
+    label: sw-oob-mgmt-port0<->Mgmt-port
+  - id: l1
+    n1: n2
+    n2: n0
+    i1: i1
+    i2: i2
+    conditioning: {}
+    label: sw-core-Ethernet0/0<->sw-oob-mgmt-port2
+  - id: l2
+    n1: n3
+    n2: n0
+    i1: i1
+    i2: i3
+    conditioning: {}
+    label: sw-dist-01-Ethernet0/0<->sw-oob-mgmt-port3
+  - id: l3
+    n1: n4
+    n2: n0
+    i1: i1
+    i2: i4
+    conditioning: {}
+    label: sw-dist-02-Ethernet0/0<->sw-oob-mgmt-port4
+  - id: l4
+    n1: n5
+    n2: n0
+    i1: i1
+    i2: i5
+    conditioning: {}
+    label: sw-acc-01-Ethernet0/0<->sw-oob-mgmt-port5
+  - id: l5
+    n1: n6
+    n2: n0
+    i1: i0
+    i2: i6
+    conditioning: {}
+    label: host-01-ens2<->sw-oob-mgmt-port6
+  - id: l6
+    n1: n2
+    n2: n3
+    i1: i3
+    i2: i2
+    conditioning: {}
+    label: sw-core-Ethernet0/2<->sw-dist-01-Ethernet0/1
+  - id: l7
+    n1: n2
+    n2: n4
+    i1: i4
+    i2: i2
+    conditioning: {}
+    label: sw-core-Ethernet0/3<->sw-dist-02-Ethernet0/1
+  - id: l8
+    n1: n3
+    n2: n5
+    i1: i3
+    i2: i2
+    conditioning: {}
+    label: sw-dist-01-Ethernet0/2<->sw-acc-01-Ethernet0/1
+  - id: l9
+    n1: n5
+    n2: n6
+    i1: i3
+    i2: i1
+    conditioning: {}
+    label: sw-acc-01-Ethernet0/2<->host-01-ens3
+  - id: l10
+    n1: n8
+    n2: n0
+    i1: i1
+    i2: i1
+    conditioning: {}
+    label: rtr-edge-Ethernet0/0<->sw-oob-mgmt-port1
+  - id: l11
+    n1: n8
+    n2: n7
+    i1: i2
+    i2: i0
+    conditioning: {}
+    label: rtr-edge-Ethernet0/1<->Internet-port
+  - id: l12
+    n1: n8
+    n2: n2
+    i1: i3
+    i2: i2
+    conditioning: {}
+    label: rtr-edge-Ethernet0/2<->sw-core-Ethernet0/1
+lab:
+  description: ""
+  notes: ""
+  title: Production
+  version: 0.3.0
