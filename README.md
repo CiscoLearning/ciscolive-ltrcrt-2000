@@ -9,7 +9,7 @@
 
 ### Bootstrap
 
-To bootstrap the environment, import [Devbox.yaml](https://github.com/rschmied/ciscolive-ltrcrt-2000/blob/main/helper-files/Devbox.yaml) into your CML instance, then start the imported lab and wait for the *Devbox* to install all the packages and updates. This will take a couple of minutes and it will be ready after a final reboot.
+To bootstrap the environment, import [Devbox.yaml](https://github.com/CiscoLearning/ciscolive-ltrcrt-2000/blob/main/helper-files/Devbox.yaml) into your CML instance, then start the imported lab and wait for the *Devbox* to install all the packages and updates. This will take a couple of minutes and it will be ready after a final reboot.
 
 ### Initial setup
 
@@ -21,7 +21,7 @@ The following steps will complete the installation of the *Devbox*:
 4. Clone this repo:
 
     ```sh
-    git clone https://github.com/rschmied/ciscolive-ltrcrt-2000
+    git clone https://github.com/CiscoLearning/ciscolive-ltrcrt-2000
     ```
 
 5. Change into the cloned repository: `cd ciscolive-ltrcrt-2000`
@@ -29,8 +29,6 @@ The following steps will complete the installation of the *Devbox*:
 7. Then, change directory to `~/cml-iac` and run `code -a .` to open that directory within the VSCode window
 
 You should now be able to follow the instructions from the lab guide.
-
-git checkout -b clus2025 --track origin/clus2025
 
 ## Running the lab at home
 
